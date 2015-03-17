@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <!-- external jquery -->       
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.42.min.js"></script> -->
+        
+        <!-- internal jquery --> 
+        <link rel="stylesheet" href="css/jquerymobile.css">
+        <script src="js/jquery.js"></script>
+        <script src="js/jquerymobile.js"></script>  
+        
+        <link rel="stylesheet" type="text/css" href="css/icook.css" />
+        <script type="text/javascript" src="js/icook.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div data-role="page" id="map_page" >
+            <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
+                <input type="search" name="search" placeholder="Search" onkeyup="search(this.value)"> <img src="img/search_icon.png" width="30" height="30" onclick="search()"/>
+            </header>
+            <div data-role="content" class="ui-content"1 id="content">
+                <!-- application data will goes here -->
             </div>
+            <footer data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li>
+                            <a href="#" id="" rel="external" data-transition="fade" data-inline="true"><img src="#" /> Favorites </a>
+                        </li>
+                        <li>
+                            <a href="#" id="" rel="external" data-transition="fade" data-inline="true"><img src="#" /> My Recipe </a>
+                        </li>
+                        <li>
+                            <a href="#" id="" rel="external" data-transition="fade" data-inline="true"><img src="#" /> Info </a>
+                        </li>
+                        <li>
+                            <a href="#" id="" rel="external" data-transition="fade" data-inline="true"><img src="#" /> Shop</a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
