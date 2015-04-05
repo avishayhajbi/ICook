@@ -4,8 +4,9 @@ $(document).ready(function () {
 $(window).resize(function() {
 	initPageCss();
 });
-function search(word){
-	
+function search(){
+	var word = $("header .search").val();
+	console.log(word);
 }
 function initPageCss() {
 	$("[data-role=content]").css("height", window.innerHeight-53 + "px");
@@ -16,4 +17,3 @@ $(window).on('hashchange', function(e) {
 $(document).on("click", '[data-role=footer]', function (e) {
 		
 });
-
