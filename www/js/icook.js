@@ -8,7 +8,7 @@ function search(word){
 	
 }
 function initPageCss() {
-	$("[data-role=content]").css("height", window.innerHeight-103 + "px");
+	$("[data-role=content]").css("height", window.innerHeight-53 + "px");
 }
 $(window).on('hashchange', function(e) {
   //console.log(e.originalEvent) //oldURL newURL
