@@ -20,15 +20,26 @@
         <script type="text/javascript" src="js/icook.js"></script>
     </head>
     <body>
-        <div data-role="page" id="map_page" >
+        <div data-role="page" id="welcomePage" >
             <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
                 <input type="search" name="search" placeholder="Search" onkeyup="search(this.value)"> <img src="img/search_icon.png" width="30" height="30" onclick="search()"/>
             </header>
             <div data-role="content" class="ui-content" id="content">
                 <!-- application data will goes here -->
+                <p>welcome</p>
             </div>
-            
         </div>
+        
+        <div data-role="page" id="filterPage" >
+            <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
+                <input type="search" name="search" placeholder="Search" onkeyup="search(this.value)"> <img src="img/search_icon.png" width="30" height="30" onclick="search()"/>
+            </header>
+            <div data-role="content" class="ui-content" id="content">
+                <!-- application data will goes here -->
+                <p>filter</p>
+            </div>
+        </div>
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>

@@ -16,3 +16,4 @@ $(window).on('hashchange', function(e) {
 $(document).on("click", '[data-role=footer]', function (e) {
 		
 });
+
