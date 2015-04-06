@@ -1,0 +1,71 @@
+שם משתמש ואימייל (חיבור דרך פייסבוק או דרך גוגל פלוס)
+סוג מנה: ראשונה, עיקרית, קינוח, סלטים, רטבים, מאפים (כל 
+מצרכים:
+כמויות של כל מצרך:
+אופן הכנה:
+דירוג המתכון: (כמה אהבו אותו)
+תגובות: מי מגיב , מה הגיב
+סוג משתמש: מתחיל, מתלמד, טבח, שף
+שם מנה:
+תמונות של המנה:
+אביזרים מיוחדים: תמור, מיקרו, גז, סיר גדול, נפה, מקציף ועוד...
+כשר: כן או לא
+חלבי: כן או לא ואם אין כלום זה פרווה
+זמן הכנה:
+אוכלוסיות מיוחדות: טבעוניים, ללא סוכר, ללא גלוטן, צליאק, דל קלוריות
+רמת קושי: 1- 10
+הערות נוספות:
+ספר: כן או לא (אם כן מה שם הספר וכותב הספר)
+למי מיועד: עצלנים, מפנקים, רומנטיים, אמהות, ילדים
+
+
+	enum for the app: 
+		category[1=first, 2=last, 3=dessert, 4=main, 5=salad, 6=sauce, 7=pastry]
+		user[1=begins, 2=trainee, 3=massacre, 4=chef]
+		dairy[1=true, 2=false, 3=parve]
+		forWho[1=lazy, 2=pampering, 3=romantic, 4=mothers, 5=children]
+		accessories[1=oven, 2=microwave, 3=gas, 4=a large pot, 5=napa, 6=foamy]
+		specialPopulations[1=vegan, 2=sugar free, 3=gluten free, 4=celiac, 5=low in calories]
+	
+	receipt structure:
+	"category": 1, //1-7
+    "commodities": [
+		{
+			"name":"",
+			"amount":""
+		}
+	],
+    "name": "",
+    "description": "",
+    "preparation": [],
+    "rate": 0,
+    "comments": [
+        {
+            "email": "",
+            "comment": ""
+        }
+    ],
+    "user": 1, //1-4
+    "images": [],
+    "accessories": [], //1-6
+    "kosher": true,
+    "dairy": 1, //1-3
+    "time": 90,
+    "specialPopulations": [], //1-5
+    "level": 1, //1-10
+    "remarks": "",
+    "book": {
+        "book": true,
+        "name": "",
+        "author": ""
+    },
+    "forWho": [], //1-5
+    "public": true,
+    "language": "he"
+	
+	
+	user structure:
+	"email": "avishayhajbi@gmail.com",
+    "name": "avishay hajbi",
+    "favorits": [],
+    "recipes": []
