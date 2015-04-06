@@ -17,3 +17,21 @@ $(window).on('hashchange', function(e) {
 $(document).on("click", '[data-role=footer]', function (e) {
 		
 });
+
+          
+$(function () {
+	$("[data-role=panel]").enhanceWithin().panel();
+});
+
+$(document).on("pageinit", "[data-role='page']", function (event) {   
+    $("[data-role='panel']").on("panelopen", function (event, ui) { 
+        //$('body').css("overflow", "hidden").on("touchmove", false);
+        $('html').css("overflow-x", "hidden")
+    });
+
+    $("[data-role='panel']").on("panelclose", function (event, ui) {
+        //$('body').css("overflow", "auto").off("touchmove");
+        $('html').css("overflow", "auto")
+    });
+    
+});
