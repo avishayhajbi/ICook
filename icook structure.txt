@@ -12,7 +12,7 @@
 כשר: כן או לא
 חלבי: כן או לא ואם אין כלום זה פרווה
 זמן הכנה:
-אוכלוסיות מיוחדות: טבעוניים, ללא סוכר, ללא גלוטן, צליאק, דל קלוריות
+אוכלוסיות מיוחדות: טבעוניים,צמחונים, ללא סוכר, ללא גלוטן, צליאק, דל קלוריות
 רמת קושי: 1- 10
 הערות נוספות:
 ספר: כן או לא (אם כן מה שם הספר וכותב הספר)
@@ -25,7 +25,7 @@
 		dairy[1=true, 2=false, 3=parve]
 		forWho[1=lazy, 2=pampering, 3=romantic, 4=mothers, 5=children]
 		accessories[1=oven, 2=microwave, 3=gas, 4=a large pot, 5=napa, 6=foamy]
-		specialPopulations[1=vegan, 2=sugar free, 3=gluten free, 4=celiac, 5=low in calories]
+		specialPopulations[1=vegan,2=vegetarian, 3=sugar free, 4=gluten free, 5=celiac, 6=low in calories]
 	
 	receipt structure:
 	"category": 1, //1-7
