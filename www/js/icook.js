@@ -1,5 +1,6 @@
 $(document).ready(function () {
    initPageCss();
+   $("header a").removeClass('ui-link ui-btn-left ui-btn ui-shadow ui-corner-all');
 });
 $(window).resize(function() {
 	initPageCss();
@@ -17,8 +18,7 @@ $(window).on('hashchange', function(e) {
 $(document).on("click", '[data-role=footer]', function (e) {
 		
 });
-
-          
+     
 $(function () {
 	$("[data-role=panel]").enhanceWithin().panel();
 });
