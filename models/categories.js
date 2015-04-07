@@ -25,6 +25,13 @@ var sessionsSchema = new Schema(
             url: String
         }
     ],
+    kosher: [
+        {
+            id: Number,
+            key: String,
+            url: String
+        }
+    ],
     forWho: [
         {
             id: Number,
