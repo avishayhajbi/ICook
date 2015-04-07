@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var sessionsSchema = new Schema( 
 {
+    id:Number,
 	category: Number,
     commodities: [
 		{
@@ -36,9 +37,9 @@ var sessionsSchema = new Schema(
     },
     forWho: { type : Array , "default" : [] },
     public: Boolean,
-    language: String
-
+    language: String,
+    price:Number
 	
 });
 	
-mongoose.model('receipts', sessionsSchema);
+mongoose.model('recipes', sessionsSchema);

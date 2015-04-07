@@ -96,8 +96,10 @@ app.listen(app.get('port'), function()
     console.log('ICook Server running...' + app.get('port'));
 });
 
-//var users = require('./s_users'); 
-//app.use(users);  
+var icook = require('./icook'); 
+app.use(icook);  
+var auxiliary = require('./auxiliary'); 
+app.use(auxiliary); 
 
 app.get('/', function(req, res) 
 {
@@ -108,5 +110,5 @@ app.get('/', function(req, res)
 
 app.get('/*', function(req, res) 
 {
-  res.send(405,'page not allowed lecturus');
+  res.send(405,'page not allowed icook');
 });
