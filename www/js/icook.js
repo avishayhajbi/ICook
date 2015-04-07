@@ -62,7 +62,7 @@ $(function () {
 $(document).on("pageinit", "[data-role='page']", function (event) {   
     $("[data-role='panel']").on("panelopen", function (event, ui) { 
         console.log("panel open")
-        $('html').css("overflow-x", "hidden")
+        $('html').css("overflow", "hidden")
     });
 
     $("[data-role='panel']").on("panelclose", function (event, ui) {
