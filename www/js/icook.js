@@ -18,7 +18,7 @@ $(window).on('hashchange', function(e) {
 $(document).on("click", '[data-role=footer]', function (e) {
 		
 });
-     
+  
 $(function () {
 	$("[data-role=panel]").enhanceWithin().panel();
 });
