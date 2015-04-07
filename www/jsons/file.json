@@ -1,0 +1,55 @@
+{
+	"category": 1,
+	"commodities": [
+		{
+			"name": "בורי",
+			"amount": "1"
+		}, {
+			"name": "חופן כוסרה",
+			"amount": "1"
+		}, {
+			"name": "כפית גינגר קצוץ",
+			"amount": "2"
+		}, {
+			"name": " מ''ל שמן זית איכותי",
+			"amount": "50"
+		}, {
+			"name": " כפית כוסברה",
+			"amount": "1/2"
+		}, {
+			"name": "פלפל לבן חתוך",
+			"amount": "1/2"
+		}, {
+			"name": "מלח",
+			"amount": "1/2"
+		}
+	],
+	"name": "קציצות בורי עסיסיות ",
+	"description": "קציצות בורי עסיסיות ",
+	"preparation": ["לערבב את כל המצרכים ביחד בקערה", "ליצור קציצות שטוחות בגודל 50גרם ליחידה", "לטגן כל צד 2 דקות במחבת עם שמן זית", "ומעל יוגוט מעט לימון וועשבי תיבול טריים"],
+	"rate": 0,
+	"comments": [
+		{
+			"email": "",
+			"comment": ""
+		}
+	],
+
+	"user": 1,
+	"images": [],
+	"accessories": [3],
+	"kosher": true,
+	"dairy": 3,
+	"time": 30,
+	"specialPopulations": [2, 5],
+	"level": 5,
+	"remarks": "",
+	"book": {
+		"book": false,
+		"name": "",
+		"author": ""
+	},
+	"forWho": [2, 4],
+	"public": true,
+	"language": "he"
+}
