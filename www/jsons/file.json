@@ -25,7 +25,7 @@
 		}
 	],
 	"name": "קציצות בורי עסיסיות ",
-	"description": "קציצות בורי עסיסיות ",
+	"description": "קציצות מעולות ומאוד טעימות ",
 	"preparation": ["לערבב את כל המצרכים ביחד בקערה", "ליצור קציצות שטוחות בגודל 50גרם ליחידה", "לטגן כל צד 2 דקות במחבת עם שמן זית", "ומעל יוגוט מעט לימון וועשבי תיבול טריים"],
 	"rate": 0,
 	"comments": [
@@ -36,7 +36,7 @@
 	],
 
 	"user": 1,
-	"images": [],
+	"images": ["http://www.labiondatlv.com/AllSites/1362/Assets/buri.jpg"],
 	"accessories": [3],
 	"kosher": true,
 	"dairy": 3,
