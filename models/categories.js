@@ -21,7 +21,7 @@ var sessionsSchema = new Schema(
     dairy: [
         {
             id: Number,
-            key: Number,
+            key: String,
             url: String
         }
     ],
