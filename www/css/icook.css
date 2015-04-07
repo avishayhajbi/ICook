@@ -41,19 +41,12 @@ header div {
     float: left;
     padding-left: 5px;
 }
-/*.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head+body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head+body .ui-btn.ui-btn-a:visited{
- background-color: transparent !important;
- border:none !important;
- border-color: none !important;
- color: transparent !important;
- text-shadow: none !important;
- top:-5px;
- }*/
-[data-role=header] a {
-    position: relative;
-    display: inline;
-    float: right;
-    padding-right: 5px;
+
+[data-role=header] img + img{
+	position:relative;
+	display: inline;
+	float: right;
+	padding-right: 5px;
 }
 
 /* search */
@@ -72,8 +65,8 @@ header div {
 #content {
     position: relative;
     padding: 0;
-    border-left: 15px solid rgb(221, 221, 221);
-    border-right: 15px solid rgb(221, 221, 221);
+    padding-right:15px;
+    padding-left:15px;
     margin: 0;
     height: 100%;
     background-image: url('../img/background.jpg');

@@ -51,7 +51,11 @@ $(document).on("click", '[data-role=footer]', function(e) {
 
 });
 
-$(function() {
+$(document).on("click", '#nav ', function (e) {
+	$("[data-role=panel]").panel( "open")
+});
+
+$(function () {
 	$("[data-role=panel]").enhanceWithin().panel();
 });
 
