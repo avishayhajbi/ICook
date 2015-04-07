@@ -29,12 +29,12 @@ $(function () {
 
 $(document).on("pageinit", "[data-role='page']", function (event) {   
     $("[data-role='panel']").on("panelopen", function (event, ui) { 
-        //$('body').css("overflow", "hidden").on("touchmove", false);
+        console.log("panel open")
         $('html').css("overflow-x", "hidden")
     });
 
     $("[data-role='panel']").on("panelclose", function (event, ui) {
-        //$('body').css("overflow", "auto").off("touchmove");
+        console.log("panel close")
         $('html').css("overflow", "auto")
     });
     
