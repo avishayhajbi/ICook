@@ -37,7 +37,7 @@ function search() {
 }
 
 function initPageCss() {
-	$("[data-role=content]").css("height", window.innerHeight - 53 + "px");
+	$("[data-role=content]").css("height", window.innerHeight - 52 + "px");
 }
 
 
