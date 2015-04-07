@@ -1,0 +1,12 @@
+!SESSION 2015-04-07 11:51:39.487 -----------------------------------------------
+eclipse.buildId=3.4.2.201308081805
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_GB
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data C:\Users\חיים\Documents\GitHub\ICook
+
+!ENTRY org.eclipse.equinox.security 1 0 2015-04-07 11:52:57.420
+!MESSAGE New keyring password generated. 
+
+!ENTRY org.eclipse.core.jobs 2 2 2015-04-07 11:53:13.414
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.aptana.usage.internal.DefaultAnalyticsEventHandler$1

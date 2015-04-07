@@ -1,53 +1,47 @@
 /* global settings */
-*{
-	margin: 0;
-	padding: 0;
-	text-decoration: none;
-	list-style-type: none;
-	text-shadow: none;
-	color:black;
-	text-transform:none;
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+    text-shadow: none;
+    color: black;
+    text-transform: none;
 }
 html {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-user-select: none;
-	user-select: none;
-	-moz-user-select: -moz-none;
-	-khtml-user-select: none;
-	background: transparent;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    background: transparent;
 }
 
 /* header */
-[data-role=header]{
-	position: fixed;
+[data-role=header] {
+    position: fixed;
     z-index: 1000;
-    height:50px;
-	background-color: #8B4132 !important;
-	width: 100%;
-	text-align: center;
-	text-shadow: none;
+    height: 50px;
+    background-color: #8B4132 !important;
+    width: 100%;
+    text-align: center;
+    text-shadow: none;
 }
-header div{
-	display: inline-block;
+header div {
+    display: inline-block;
 }
-[data-role=header] img{
-	position:relative;
-	display: inline;
-	top:8px;
-	float: left;
-	padding-left: 5px;
+[data-role=header] img {
+    position: relative;
+    display: inline;
+    top: 8px;
+    float: left;
+    padding-left: 5px;
 }
-/*.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head+body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head+body .ui-btn.ui-btn-a:visited{
-	background-color: transparent !important; 
-	border:none !important;
-	border-color: none !important;
-	color: transparent !important;
-	text-shadow: none !important;
-	top:-5px;
-}*/
+
 [data-role=header] img + img{
 	position:relative;
 	display: inline;
@@ -56,30 +50,110 @@ header div{
 }
 
 /* search */
-.ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a{
-	position:relative;
-	height: 30px;
-	width: 60%;
-	min-width: 200px;
-	padding: 0;
-	margin:auto;
-	top:2px;
-	text-decoration: none;
+.ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a {
+    position: relative;
+    height: 30px;
+    width: 60%;
+    min-width: 200px;
+    padding: 0;
+    margin: auto;
+    top: 2px;
+    text-decoration: none;
 }
 
 /* content css */
-#content{
-	position:relative;
-	padding:0;
-	border-left: 15px solid rgb(221, 221, 221);
-	border-right: 15px solid rgb(221, 221, 221);
-	margin:0;
-	height: 100%;
-	background-image: url('../img/background.jpg');
-	background-size: 100% 100%;
-	background-repeat: repeat;
+#content {
+    position: relative;
+    padding: 0;
+    padding-right:15px;
+    padding-left:15px;
+    margin: 0;
+    height: 100%;
+    background-image: url('../img/background.jpg');
+    background-size: 100% 100%;
+    background-repeat: repeat;
+    font-family: Arial;
+    direction: rtl;
 }
 
 /* welcome page */
 
 /* filter page */
+/*recipe page*/
+.recipeName {
+    color: #8b4132;
+    font-size: 22px;
+    margin: 10px 10px 11px 0;
+}
+.subTitle {
+    position: relative;
+    font-size: 15px;
+    margin: 0 auto;
+    display: inline;
+    margin-right: 15px;
+}
+.napkin {
+    background-image: url('../img/map.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.commodities {
+    width: 90%;
+    height: auto;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    text-align: -webkit-right;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.preparation {
+    width: 90%;
+    height: auto;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    text-align: -webkit-right;
+    margin: 0 auto;
+    margin-top: 20px;
+      margin-bottom: 20px;
+}
+.title {
+    padding: 0 0 5px 0;
+}
+.imgRecipe {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width:100%;
+      margin-bottom: 15px;
+}
+.topImg {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    float:left;
+  margin: 4px 0 0 15px;
+}
+.countLike{
+    float:left;
+    color: #ffffff;
+      padding: 8px 0px 0 5px;
+}
+.seledtedImg{
+}
+.userLabal{
+    float: left;
+    font-family: Arial;
+    font-weight: 600;
+}
+.subTitleTime{
+    position: relative;
+    font-size: 15px;
+    margin: 0 auto;
+      margin-bottom: 5px;
+}
+.recipeDes{
+    color: #494949;
+  font-size: 16px;
+  margin: 10px 10px 11px 0;
+}
+.TitleForWho{
+    
+}
