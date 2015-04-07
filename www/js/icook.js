@@ -18,7 +18,11 @@ $(window).on('hashchange', function(e) {
 $(document).on("click", '[data-role=footer]', function (e) {
 		
 });
-  
+
+$(document).on("click", '#nav ', function (e) {
+	$("[data-role=panel]").panel( "open")
+});
+
 $(function () {
 	$("[data-role=panel]").enhanceWithin().panel();
 });

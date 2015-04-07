@@ -48,7 +48,7 @@ header div{
 	text-shadow: none !important;
 	top:-5px;
 }*/
-[data-role=header] a{
+[data-role=header] img + img{
 	position:relative;
 	display: inline;
 	float: right;
