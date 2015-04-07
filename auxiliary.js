@@ -44,7 +44,7 @@ router.get("/auxiliary/getCategories/:lang?", function(req, res)
  			{
  				console.log("the result is: " + result.length);
  				r.status = 1;
-		    	r.info = (result.length)?result:[];
+		    	r.info = (result.length)?result[0]:[];
 		    	res.json(r);
         	}
 		});
