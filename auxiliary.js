@@ -8,6 +8,7 @@ var router = express.Router();
 var path = require('path');
 var cloudinary = require('cloudinary');
 var Q = require('q');
+var assert = require('assert');
 
 router.get("/auxiliary/getCategories/:lang?", function(req, res) 
 {
@@ -85,7 +86,6 @@ router.post("/auxiliary/updateRate", function(req, res)
         console.log("rate is: " + data);
             
         db.model('recipes').update({ id:data.id }, {$set:data}, function (err, result)
-        //$or: [ { owner : { $in : friends } }, { participants: { $elemMatch: { user : { $in : friends } } } } ] 
         {
             if (err) 
             {
@@ -151,15 +151,23 @@ router.post("/auxiliary/updateFavorite", function(req, res)
             {
                 if (result.length)
                 {
-                    var temparr;
-                    function contains(a, obj) {
-                        return a.some(function(element){return element == obj;})
+                    
+                    
+                    
+
+                    var rid = parseInt(data.recipeId,10);
+                    var index = result[0].favorites.indexOf(rid);
+
+                    if (index == -1){
+                        console.log("new favoite "+rid)
+                        result[0].favorites.push(rid)
+                       
                     }
-                    if (contains(result[0].favorites,data.recipeId)){
-                        temparr = result[0].favorites.slice(data.recipeId,-1)
+                    else {
+                        console.log("remove favoite "+rid)
+                         result[0].favorites.splice(index,1)
                     }
-                    else temparr = result[0].favorites.push(data.recipeId)
-                    db.model('users').update({ email:data.email }, {$set:{favorites: temparr } }, function (err, result)
+                    db.model('users').update({ email:data.email }, {$set:{favorites: result[0].favorites } }, function (err, result)
                     {
                         if (err) 
                         {

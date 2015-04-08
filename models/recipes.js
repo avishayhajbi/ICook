@@ -24,6 +24,7 @@ var recipeSchema = new Schema(
             date: Date
         }
     ],
+    users:{ type : Array , "default" : [] },
     user: Number, // add
     username: String, // add
     images: { type : Array , "default" : [] },
