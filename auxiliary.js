@@ -278,7 +278,58 @@ router.post("/auxiliary/simpleFilter", function(req, res)
     }    
 });
 
+router.post("/auxiliary/nameFilter", function(req, res) 
+{
+    var data;
+    var r = {};
+    try
+    {
+        // try to parse the query
+        data = req.body;
+    }
+    catch(err)
+    {
+        console.log("failure while parsing the request, the error:", err);
+        r.status = 0;
+        r.desc = "failure while parsing the request";
+        res.json(r);
+        return;
+    }
+    
+    if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
+    {
+        console.log("data is: " + data);
 
+        console.log(JSON.stringify(data))
+        db.model('recipes').find( { "name": { "$regex":data.name , "$options": "i" } } , { _id : false }, function (err, result)
+        {
+            if (err) 
+            {
+                console.log("--> Err <-- : " + err);
+                r.status = 0;
+                r.desc = "--> Err <-- : " + err;
+                res.json(r);
+            }
+            
+            if (result)
+            {
+                console.log("the result is: " + result.length);
+                r.status = 1;
+                r.info = (result.length)?result:[];
+                res.json(r);
+            }
+        });
+
+    }
+    else
+    {
+        console.log("data propery does not exist in the query or it is empty");
+        r.status = 0;
+        r.desc = "data propery does not exist in the query or it is empty";
+        res.json(r);  
+        return;     
+    }    
+});
 
 router.post("/auxiliary/advancedFilter", function(req, res) 
 {
