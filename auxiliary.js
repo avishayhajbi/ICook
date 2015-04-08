@@ -145,9 +145,18 @@ router.post("/auxiliary/advancedFilter", function(req, res)
     if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
     {
         console.log("data is: " + data);
-            
-        db.model('recipes').find({  }, { _id : false }, function (err, result)
-        //$or: [ { owner : { $in : friends } }, { participants: { $elemMatch: { user : { $in : friends } } } } ]
+        data.accessories = (data.accessories)?data.accessories.map(Number):undefined;
+        data.forWho = (data.forWho)?data.forWho.map(Number):undefined;
+        data.specialPopulations = (data.specialPopulations)?data.specialPopulations.map(Number):undefined;
+        db.model('recipes').find( { $and: [
+        { category : data.category || {$exists:true} } , 
+        {user : data.user || {$exists:true} }, 
+        {dairy : data.dairy || {$exists:true} }, 
+        {kosher : data.kosher || {$exists:true} },
+        { accessories : { $all : data.accessories } || {$exists:true} }, 
+        { forWho : { $all : data.forWho } || {$exists:true} }, 
+        { specialPopulations : { $all : data.specialPopulations } || {$exists:true} } 
+        ] }, { _id : false }, function (err, result)
         {
             if (err) 
             {
