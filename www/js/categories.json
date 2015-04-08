@@ -1,0 +1,176 @@
+{
+    "status": 1,
+    "info": 
+        {
+            "lang": "he",
+            "length":6,
+            "issues":['category','user'],
+            "category": [
+                {
+                    "id": 1,
+                    "key": "מנה ראשונה",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                },
+                {
+                    "id": 2,
+                    "key": "מנה אחרונה",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                },
+                {
+                    "id": 3,
+                    "key": "קינוח",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                },
+                {
+                    "id": 4,
+                    "key": "עיקרית",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                },
+                {
+                    "id": 5,
+                    "key": "סלטים",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                },
+                {
+                    "id": 6,
+                    "key": "רטבים",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                },
+                {
+                    "id": 7,
+                    "key": "מאפים",
+                    "url": "http://crissa.ca/images/Pasta-Dish.jpg"
+                }
+            ],
+            "user": {
+            	"question": "bla bla",
+            	"res": [
+                {
+                    "id": 1,
+                    "key": "מתחיל",
+                    "url": "testlink"
+                },
+                {
+                    "id": 2,
+                    "key": "מתלמד",
+                    "url": "testlink"
+                },
+                {
+                    "id": 3,
+                    "key": "טבח",
+                    "url": "testlink"
+                },
+                {
+                    "id": 4,
+                    "key": "שף",
+                    "url": "testlink"
+                }
+            ]},
+            "dairy": [
+                {
+                    "id": 1,
+                    "url": "testlink"
+                },
+                {
+                    "id": 2,
+                    "url": "testlink"
+                },
+                {
+                    "id": 3,
+                    "url": "testlink"
+                }
+            ],
+            "forWho": [
+                {
+                    "id": 1,
+                    "key": "עצלנים",
+                    "url": "testlink"
+                },
+                {
+                    "id": 2,
+                    "key": "מפנקים",
+                    "url": "testlink"
+                },
+                {
+                    "id": 3,
+                    "key": "רומנטיקנים",
+                    "url": "testlink"
+                },
+                {
+                    "id": 4,
+                    "key": "אמהות",
+                    "url": "testlink"
+                },
+                {
+                    "id": 5,
+                    "key": "ילדים",
+                    "url": "testlink"
+                }
+            ],
+            "accessories": [
+                {
+                    "id": 1,
+                    "key": "תנור",
+                    "url": "testlink"
+                },
+                {
+                    "id": 2,
+                    "key": "מיקרו גל",
+                    "url": "testlink"
+                },
+                {
+                    "id": 3,
+                    "key": "גז",
+                    "url": "testlink"
+                },
+                {
+                    "id": 4,
+                    "key": "סיר גדול",
+                    "url": "testlink"
+                },
+                {
+                    "id": 5,
+                    "key": "נפה",
+                    "url": "testlink"
+                },
+                {
+                    "id": 6,
+                    "key": "מקציף",
+                    "url": "testlink"
+                }
+            ],
+            "specialPopulations": [
+                {
+                    "id": 1,
+                    "key": "טבעוני",
+                    "url": "testlink"
+                },
+                {
+                    "id": 2,
+                    "key": "צימחוני",
+                    "url": "testlink"
+                },
+                {
+                    "id": 3,
+                    "key": "ללא סוכר",
+                    "url": "testlink"
+                },
+                {
+                    "id": 4,
+                    "key": "ללא גלוטן",
+                    "url": "testlink"
+                },
+                {
+                    "id": 5,
+                    "key": "צליאק",
+                    "url": "testlink"
+                },
+                {
+                    "id": 6,
+                    "key": "דל קלוריות",
+                    "url": "testlink"
+                }
+            
+        }
+    ]
+}
