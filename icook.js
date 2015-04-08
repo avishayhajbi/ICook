@@ -89,15 +89,11 @@ router.post("/icook/insertRecipe",function(req, res)
     
     if ( data && data != "" )   // if data property exists in the request is not empty
     {
-        var form = new multiparty.Form();
-       form.parse(req, function(err, fields, files) {
-          console.log("data is: " + JSON.stringify(data));
-          new recipes(fields).save(function (e) {
+
+        console.log("data is: " + JSON.stringify(data));
+          new recipes(data).save(function (e) {
             res.send('item saved');
           });
-        });
-   
-        
         /*db.model('recipes').update({id:0},{$set:data}, function (err, result)
         {
             if (err) 
