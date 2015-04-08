@@ -97,6 +97,7 @@ router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res)
                 r.status = 0;
                 r.desc = "--> Err <-- : " + err;
                 res.json(r);
+                return;
             }
             
             if (result)
@@ -104,6 +105,7 @@ router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res)
                 console.log("the result is: " + result);
                 r.status = 1;
                 res.json(r);
+                return;
             }
         });
 
