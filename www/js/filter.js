@@ -172,7 +172,7 @@ function showResults(){
 		success : function(data){
 			if (data.status ==1){
 				recipe = data.info;
-				window.location.href = "results.html";
+				window.location.href = "index.html#recipePage";
 			}
 		},
 		error : function(objRequest, errortype) {
