@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var sessionsSchema = new Schema( 
+var recipeSchema = new Schema( 
 {
     id:Number,
+    date:Date,
 	category: Number,
     commodities: [
 		{
@@ -17,8 +18,10 @@ var sessionsSchema = new Schema(
     rate: Number,
     comments: [
         {
-            email: String,
-            comment: String
+            email:String,
+            username: String,
+            comment: String,
+            date: Date
         }
     ],
     user: Number,
@@ -42,4 +45,4 @@ var sessionsSchema = new Schema(
 	
 });
 	
-mongoose.model('recipes', sessionsSchema);
+mongoose.model('recipes', recipeSchema);

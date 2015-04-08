@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var sessionsSchema = new Schema( 
+var categorySchema = new Schema( 
 {
     lang: String,
     length:Number,
@@ -79,4 +79,4 @@ var sessionsSchema = new Schema(
 	
 });
 	
-mongoose.model('categories', sessionsSchema);
+mongoose.model('categories', categorySchema);
