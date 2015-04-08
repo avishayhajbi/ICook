@@ -9,7 +9,7 @@ var recipeSchema = new Schema(
     commodities: [ /**/
 		{
 			name:String,
-			amount:{ type : Number , "default" : 0 }
+			amount:String
 		}
 	],
     name: String,/**/
@@ -18,14 +18,14 @@ var recipeSchema = new Schema(
     rate: { type : Number , "default" : 0 },
     comments: [
         {
-            email:String,
-            username: String,
-            comment: String,
-            date: Date
+            email:{ type : String , "default" : '' },
+            username: { type : String , "default" : '' },
+            comment: { type : String , "default" : '' },
+            date: { type : String , "default" : '' }
         }
     ],
-    users:{ type : Array , "default" : [] },
-    user: String, // add
+    //users:{ type : Array , "default" : [] },
+    user: Number, // add
     username: String, // add
     images: { type : Array , "default" : [] },
     accessories: { type : Array , "default" : [] }, 
@@ -36,9 +36,9 @@ var recipeSchema = new Schema(
     level: Number,
     remarks: String,
     book: {
-        book: Boolean,
-        name: String,
-        author: String
+        book: { type : Boolean , "default" : false }, 
+        name: { type : String , "default" : '' }, 
+        author: { type : String , "default" : '' }, 
     },
     forWho: { type : Array , "default" : [] },
     public: { type : Boolean , "default" : true }, 
@@ -47,4 +47,4 @@ var recipeSchema = new Schema(
 	
 });
 	
-mongoose.model('recipes', recipeSchema);
+recipes = mongoose.model('recipes', recipeSchema);

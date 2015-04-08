@@ -63,13 +63,13 @@ router.post("/icook/getRecipeById", function(req, res)
     }    
 });
 
-router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res) 
+router.post("/icook/insertRecipe" ,function(req, res) 
 {
     var userip = req.connection.remoteAddress.replace(/\./g , '');
-    var uniqueid = new Date().getTime()+userip;
+    var uniqueid = parseInt( new Date().getTime()+userip,10);
     var data;
     var r = {};
-  
+    console.log(req)
     try
     {
         // try to parse the json data
@@ -84,12 +84,16 @@ router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res)
         res.json(r);
         return;
     }
-    console.log(data)
+    console.log(JSON.stringify(data))
+
+    
     if ( data && data != "" )   // if data property exists in the request is not empty
     {
         console.log("data is: " + data);
-            
-        db.model('recipes').update({id:data.id},{$set:data}, function (err, result)
+          new recipes(req.body).save(function (e) {
+            res.send('item saved');
+          });
+        /*db.model('recipes').update({id:0},{$set:data}, function (err, result)
         {
             if (err) 
             {
@@ -107,7 +111,7 @@ router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res)
                 res.json(r);
                 return;
             }
-        });
+        });*/
 
     }
     else
@@ -117,7 +121,7 @@ router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res)
         r.desc = "data propery does not exist in the query or it is empty";
         res.json(r);  
         return;     
-    }    
+    }   
 });
 
 router.post("/icook/updateRecipe", function(req, res) 
