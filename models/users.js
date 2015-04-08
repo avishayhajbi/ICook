@@ -5,7 +5,7 @@ var usersSchema = new Schema(
 	{
 		email: String,
 	    username: String,
-	    favorits:  { type : Array , "default" : [] },
+	    favorites:  { type : Array , "default" : [] },
 	    recipes: { type : Array , "default" : [] }
 	});
 	

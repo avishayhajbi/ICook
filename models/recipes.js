@@ -4,18 +4,18 @@ var Schema = mongoose.Schema;
 var recipeSchema = new Schema( 
 {
     id:Number,
-    date:Date,
-	category: Number,
-    commodities: [
+    date:String,
+	category: Number,/**/
+    commodities: [ /**/
 		{
 			name:String,
-			amount:String
+			amount:{ type : Number , "default" : 0 }
 		}
 	],
-    name: String,
-    description: String,
-    preparation: { type : Array , "default" : [] },
-    rate: Number,
+    name: String,/**/
+    description: String,/**/
+    preparation: { type : Array , "default" : [] }, /*split*/
+    rate: { type : Number , "default" : 0 },
     comments: [
         {
             email:String,
@@ -28,8 +28,8 @@ var recipeSchema = new Schema(
     username: String, // add
     images: { type : Array , "default" : [] },
     accessories: { type : Array , "default" : [] }, 
-    kosher: Number, // change
-    dairy: Number, 
+    kosher: Number, /**/ // change
+    dairy: Number,/**/ 
     time: Number,
     specialPopulations: { type : Array , "default" : [] }, 
     level: Number,
@@ -40,9 +40,9 @@ var recipeSchema = new Schema(
         author: String
     },
     forWho: { type : Array , "default" : [] },
-    public: Boolean,
-    language: String,
-    price:Number
+    public: { type : Boolean , "default" : true }, 
+    language: String,/**/
+    price:{ type : Number , "default" : 0 }
 	
 });
 	

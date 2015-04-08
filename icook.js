@@ -63,17 +63,18 @@ router.post("/icook/getRecipeById", function(req, res)
     }    
 });
 
-router.post("/icook/insertRecipe", function(req, res) 
+router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res) 
 {
-    var userip = request.connection.remoteAddress.replace(/\./g , '');
+    var userip = req.connection.remoteAddress.replace(/\./g , '');
     var uniqueid = new Date().getTime()+userip;
     var data;
     var r = {};
+  
     try
     {
         // try to parse the json data
         data = req.body;
-        date.id = uniqueid;
+        data.id = uniqueid;
     }
     catch(err)
     {
@@ -83,7 +84,7 @@ router.post("/icook/insertRecipe", function(req, res)
         res.json(r);
         return;
     }
-    
+    console.log(data)
     if ( data && data != "" )   // if data property exists in the request is not empty
     {
         console.log("data is: " + data);

@@ -62,6 +62,134 @@ router.get("/auxiliary/getCategories/:lang?", function(req, res)
     }    
 });
 
+router.post("/auxiliary/updateRate", function(req, res) 
+{
+    var data;
+    var r = {};
+    try
+    {
+        // try to parse the query
+        data = req.body;
+    }
+    catch(err)
+    {
+        console.log("failure while parsing the request, the error:", err);
+        r.status = 0;
+        r.desc = "failure while parsing the request";
+        res.json(r);
+        return;
+    }
+    
+    if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
+    {
+        console.log("rate is: " + data);
+            
+        db.model('recipes').update({ id:data.id }, {$set:data}, function (err, result)
+        //$or: [ { owner : { $in : friends } }, { participants: { $elemMatch: { user : { $in : friends } } } } ] 
+        {
+            if (err) 
+            {
+                console.log("--> Err <-- : " + err);
+                r.status = 0;
+                r.desc = "--> Err <-- : " + err;
+                res.json(r);
+            }
+            
+            if (result)
+            {
+                console.log("the result is: " + result.length);
+                r.status = 1;
+                r.info = (result.length)?result[0]:[];
+                res.json(r);
+            }
+        });
+
+    }
+    else
+    {
+        console.log("rate propery does not exist in the query or it is empty");
+        r.status = 0;
+        r.desc = "rate propery does not exist in the query or it is empty";
+        res.json(r);  
+        return;     
+    }    
+});
+
+router.post("/auxiliary/updateFavorite", function(req, res) 
+{
+    var data;
+    var r = {};
+    try
+    {
+        // try to parse the query
+        data = req.body;
+    }
+    catch(err)
+    {
+        console.log("failure while parsing the request, the error:", err);
+        r.status = 0;
+        r.desc = "failure while parsing the request";
+        res.json(r);
+        return;
+    }
+    
+    if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
+    {
+        console.log("favorite is: " + data);
+            
+        db.model('users').find({ email:data.email }, { _id:false}, function (err, result)
+        {
+            if (err) 
+            {
+                console.log("--> Err <-- : " + err);
+                r.status = 0;
+                r.desc = "--> Err <-- : " + err;
+                res.json(r);
+            }
+            
+            if (result)
+            {
+                if (result.length)
+                db.model('users').update({ email:data.email }, {$set:{favorites: result[0].favorites.push(data.id) } }, function (err, result)
+                {
+                    if (err) 
+                    {
+                        console.log("--> Err <-- : " + err);
+                        r.status = 0;
+                        r.desc = "--> Err <-- : " + err;
+                        res.json(r);
+                    }
+                    
+                    if (result)
+                    {
+                        
+                        console.log("the result is: " + result.length);
+                        r.status = 1;
+                        r.info = (result.length)?result[0]:[];
+                        res.json(r);
+                    }
+                });
+                else
+                {
+                        console.log("the result is: " + result.length);
+                        r.status = 1;
+                        r.info = (result.length)?result[0]:[];
+                        res.json(r);
+                }
+            }
+        });
+
+    }
+    else
+    {
+        console.log("favorite propery does not exist in the query or it is empty");
+        r.status = 0;
+        r.desc = "favorite propery does not exist in the query or it is empty";
+        res.json(r);  
+        return;     
+    }    
+});
+
 router.post("/auxiliary/simpleFilter", function(req, res) 
 {
     var data;
