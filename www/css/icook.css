@@ -1,6 +1,4 @@
-/* global settings */
-
-* {
+*{
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -76,8 +74,8 @@ header div {
 #content {
     position: relative;
     padding: 0;
-    padding-right:15px;
-    padding-left:15px;
+    padding-right: 15px;
+    padding-left: 15px;
     margin: 0;
     height: 100%;
     background-image: url('../img/background.jpg');
@@ -91,10 +89,19 @@ header div {
 
 /* filter page */
 
+/*registeration page*/
+.imgLogo {
+    width: 96%;
+    height: auto;
+    position: relative;
+    top: 97px;
+    margin: 0 auto;
+}
+
 /*recipe page*/
 .recipeName {
     color: #8b4132;
-    font-size: 22px;
+    font-size: 23px;
     margin: 10px 10px 11px 0;
 }
 .subTitle {
@@ -102,7 +109,7 @@ header div {
     font-size: 15px;
     margin: 0 auto;
     display: inline;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 .napkin {
     background-image: url('../img/map.png');
@@ -126,7 +133,10 @@ header div {
     text-align: -webkit-right;
     margin: 0 auto;
     margin-top: 20px;
-      margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+.preparation > p {
+
 }
 .title {
     padding: 0 0 5px 0;
@@ -134,40 +144,132 @@ header div {
 .imgRecipe {
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    width:100%;
-      margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 7px;
 }
 .topImg {
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    float:left;
-  margin: 4px 0 0 15px;
+    float: left;
+    margin: 4px 0 0 10px;
 }
-.countLike{
-    float:left;
+.topImgStar {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    float: left;
+    margin: 6px 0 0 5px;
+}
+.countLike {
+    float: left;
     color: #ffffff;
-      padding: 8px 0px 0 5px;
+    padding: 8px 0px 0 5px;
 }
-.seledtedImg{
+.seledtedImg {
 }
-.userLabal{
+.userLabal {
     float: left;
     font-family: Arial;
     font-weight: 600;
 }
-.subTitleTime{
+.subTitleTime {
     position: relative;
     font-size: 15px;
     margin: 0 auto;
-      margin-bottom: 5px;
+    margin-bottom: 5px;
 }
-.recipeDes{
+.recipeDes {
     color: #494949;
-  font-size: 16px;
-  margin: 10px 10px 11px 0;
+    font-size: 17px;
+    margin: 10px 10px 11px 0;
 }
-.TitleForWho{
-    
+.titleComment {
+    color: #06262d;
+    font-size: 19px;
+}
+.SecComment {
+    background-color: #36a69e;
+    width: 93%;
+    height: 35px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 10px 10px 0 0;
+}
+.imgComment {
+    float: left;
+    position: relative;
+    bottom: 20px;
+    left: 2%;
+}
+.comments {
+    width: 96%;
+    margin: 0 auto;
+}
+.listComment {
+    padding: 3px 10px 5px 10px;
+    margin: 0 0 20px 0;
+    /*direction: ltr;*/
+}
+.listComment > li {
+    padding: 5px 0 4px 0px;
+    font-weight: 500;
+    border-bottom: 1px solid #494949;
+}
+.listComment > li:last-child {
+    margin: 0 0 5px 0;
+}
+.inputComment {
+    width: 80%;
+    background: tan;
+    border: 1px solid #494949;
+    border-radius: 4px;
+}
+.inputSubmit {
+    width: 14%;
+    background: #8b4132;
+    border: none;
+    color: #ffffff;
+    /* font-family: Arial; */
+    border: 1px solid #494949;
+    border-radius: 4px;
+}
+.formcomment {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.listFavorite{
+      padding: 10px 10px 0 0;
+  margin: 5px 0 10px 0;
+    display: -webkit-box;
+}
+.listFavorite>div{
+    font-size: 18px;
+  font-weight: 600;
+  color: #494949;
+    padding: 0 10px 0 0;
+}
+.listFavorite>img{
+  width: 100px;
+  height: auto;
+  display: inline-block;
+  padding: 1px 3px 5px 0px;
+}
+
+.recipeListName{
+  font-size: 19px;
+  font-weight: 600;
+}
+.titleFavorite{
+    color: #8B4132;
+    margin: 10px 0 15px 0;
+}
+.subTitleFavorite{
+      font-weight: 100;
+        position: relative;
+    font-size: 15px;
+    margin: 0 auto;
+    display: inline;
 }
 
 /* panel */
