@@ -15,12 +15,15 @@ function ajax_callBack(data){
 		obj = new filterViews();
 		obj.init(jsonData);
 		obj.show();
+		emptyMatzaCrumbs();
 	} else {
 		console.log('server status code are not 1');
 		return;
 	}
 }
-
+function emptyMatzaCrumbs(){
+	$('#categoryChecked').empty();
+}
 function generate_next_sort(questionObj){
 	var question = questionObj.question;
 	$('#question').text(question);
@@ -139,7 +142,7 @@ function changeButtons(){
 	}
 }
 function disable_skip_button(){
-	$('#skipButton').css('opacity',0);
+	$('#skipButton').css('opacity',0.5);
 	$('#skipButton').removeAttr('onclick');
 }
 function enable_skip_button(){
@@ -172,7 +175,7 @@ function showResults(){
 		success : function(data){
 			if (data.status ==1){
 				recipe = data.info;
-				window.location.href = "index.html#recipePage";
+				window.location.href = "index.html#resultListPage";
 			}
 		},
 		error : function(objRequest, errortype) {
@@ -187,7 +190,7 @@ function show_bread_crumbs(tag){
 	//liChecked.id('');
 	if ($('#categoryChecked').children().length > 0){
 		liChecked.attr('id','other_li');
-		liChecked.text(' | '+tag.children[1].innerText);
+		liChecked.text(' > '+tag.children[1].innerText);
 	}else{
 		liChecked.attr('id','first_li');
 		liChecked.text(tag.children[1].innerText);

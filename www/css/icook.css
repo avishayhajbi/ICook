@@ -1,13 +1,5 @@
 *{
-<<<<<<< HEAD
-	margin: 0 auto;
-	padding: 0;
-	text-decoration: none;
-	list-style-type: none;
-	text-shadow: none;
-	color:black;
-	text-transform:none;
-=======
+
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -15,7 +7,7 @@
     text-shadow: none;
     color: black;
     text-transform: none;
->>>>>>> e2099d950c07e2873b0903b0e64f7a708729de05
+    overflow-y: hidden;
 }
 html {
     margin: 0;
@@ -32,6 +24,22 @@ html {
 	width: 80%;
 	margin: auto;
 	background-image: url('../img/background.jpg');
+}
+.backto{
+background-image: url('../img/backButton.png') !important;
+  width: 48px;
+  background-size: 100% 100%;
+  margin: 8px 5px 0 6px;
+  float: left;
+  height: 36px;
+  border: none; 
+   border-radius: 5px; 
+   background: transparent; 
+  /* font-size: 17px; */
+  /* font-family: arial; */
+  /* font-weight: 600; */
+  /* color: #494949; */
+  background-repeat: no-repeat;
 }
 /* header */
 [data-role=header] {
@@ -57,19 +65,15 @@ header div {
     position: relative;
     display: inline;
     top: 8px;
-    float: left;
-    padding-left: 5px;
-    width: 80px;
+    float:right;
+    padding-right: 5px;
+    width: 30px;
     height:30px;
 }
 
-[data-role=header] img + img{
-	position:relative;
-	display: inline;
-	float: right;
-	padding-right: 5px;
-	width: 30px;
-    height:30px;
+.ui-btn .ui-input-btn .ui-corner-all .ui-shadow {
+    background-color: tan;
+  float: left;
 }
 
 /* search */
@@ -83,7 +87,13 @@ header div {
     top: 2px;
     text-decoration: none;
 }
-
+#categoryContainer > li:last-child{
+}
+#search_text_area{
+    padding-left: 4.2em;
+  padding-top: 0px;
+  line-height: 19px;
+}
 /* content css */
 #content {
     position: relative;
@@ -102,7 +112,6 @@ header div {
 /* welcome page */
 
 /* filter page */
-<<<<<<< HEAD
 .ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a {
   position: relative;
   height: 30px;
@@ -136,6 +145,7 @@ header div {
 }
 #categoryContainer{
   text-align: center;
+  margin-bottom: 50px;
 }
 .categoryItem {
   /*border: 2px black solid;*/
@@ -165,30 +175,29 @@ header div {
 #buttonsContainer{
 }
 #searchButton{
-  width: 65%;
+width: 80%;
   background-color: #8B4132;
   display: -webkit-inline-box;
   float: left;
   text-align: -webkit-center;
+  padding: 15px 0 15px 0;
 }
 #skipButton{
-  width: 15%;
+  width: 20%;
   float: left;
   background-color: #8B4352;
+  padding: 15px 0 15px 0;
 }
 #goBack{
-	display: inline;
-  position: relative;
-  top: 55px;
-  font-weight: bolder;
+  line-height: 30px;
 }
-
-
+.toFilterPage{
+    
+}
 
 .clear {
 	clear: both;
 }
-=======
 
 /*registeration page*/
 .imgLogo {
@@ -356,7 +365,23 @@ header div {
   display: inline-block;
   padding: 1px 3px 5px 0px;
 }
-
+.listResult{
+      padding: 10px 10px 0 0;
+  margin: 5px 0 10px 0;
+    display: -webkit-box;
+}
+.listResult>div{
+    font-size: 18px;
+  font-weight: 600;
+  color: #494949;
+    padding: 0 10px 0 0;
+}
+.listResult>img{
+  width: 100px;
+  height: auto;
+  display: inline-block;
+  padding: 1px 3px 5px 0px;
+}
 .recipeListName{
   font-size: 19px;
   font-weight: 600;
@@ -386,4 +411,3 @@ header div {
   color: #fff;
   text-shadow: 0 1px 0 #111;
  }
->>>>>>> e2099d950c07e2873b0903b0e64f7a708729de05

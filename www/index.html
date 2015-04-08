@@ -7,9 +7,9 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
         <title>ICook</title>
         <!-- external jquery -->       
-        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.42.min.js"></script> -->
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.42.min.js"></script> 
         
         <!-- internal jquery --> 
         <link rel="stylesheet" href="css/jquerymobile.css">
@@ -23,45 +23,48 @@
     <body>
         <div data-role="page" id="welcomePage" >
             <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-               <img src="img/icook_icon.png" /> <img src="img/menu_button.png" id="nav" />
+               <img src="img/menu_button.png" id="nav" />
             </header>
             <div data-role="content" class="ui-content" id="content">
-                
-                <input type="button" value="המשך" onclick='location="#filterPage"' style="margin-top:90%"/>
+                <img src="img/logo.png" class="imgLogo"/>
+                <button class="toFilterPage" type="button"  style="background-color:transparent; border-color: #494949;color: #494949;text-shadow: 0 1px 0 transparent;position: relative;top: 130px;font-family: Arial;  font-weight: bold;font-size: 20px; ">התחל לבשל</button>
             </div>
         </div>
         
         <div data-role="page" id="registrationPage" >
             <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-                <img src="img/icook_icon.png" /> <img src="img/menu_button.png" id="nav" />
+                 <img src="img/menu_button.png" id="nav" />
             </header>
             <div data-role="content" class="ui-content" id="content">
                 <!-- application data will goes here -->
-                <img src="img/logo.png" class="imgLogo"/>
+                
             </div>
         </div>
         
         <div data-role="page" id="filterPage" >
             <header data-role="header" data-position="fixed" data-tap-toggle="false">
-            	<section onclick="goBack(this)" id="goBack">&lt;</section>
-	            <input placeholder="Search" type="search" data-role="search" id='search_text_area'></section>
-                <img src="img/icook_icon.png" /> <img src="img/menu_button.png" id="nav" />
+            	<section onclick="goBack(this)" id="goBack" class="backto"></section>
+	            <input placeholder="חיפוש שם מתכון" type="search" onkeydown="keyWasPressed(event)" data-role="search" id='search_text_area'>
+                <img src="img/menu_button.png" id="nav" />
             </header>
             <div data-role="content" class="ui-content" id="content">
             	<ul id="categoryChecked"></ul>
             	<section id="question"></section>
                 <ul id="categoryContainer"></ul>
-                <section id="buttonsContainer">
-                	<section id="searchButton" class="filter_buttons" onclick="search()">הצג תוצאות</section>
-                	<section id="skipButton" class="filter_buttons" onclick="skip(this)">דלג</section>
-                </section>
+                <footer data-role="footer" data-position="fixed" id="buttonsContainer">
+	                	<section id="searchButton" class="filter_buttons" onclick="showResults()">הצג תוצאות</section>
+	                	<section id="skipButton" class="filter_buttons" onclick="skip(this)">דלג</section>
+                </footer>
                 <div class="clear"></div>
             </div>
         </div>
         <!--the recipe page -->
           <div data-role="page" id="recipePage" >
-            <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-                 <img src="img/icook_icon.png"/> <img src="img/menu_button.png" id="nav" />
+            <header data-role="header" data-position="fixed" data-tap-toggle="false">     
+            	<!--<input data-role="none" class="backto" type="button" value="back" onclick="history.back()" data-icon="back"/>-->
+            	<input data-role="none" type="button"  onclick="history.back()" class="backto"/>
+            	<input placeholder="חיפוש שם מתכון" type="search" data-role="search" id='search_text_area'>
+                <img src="img/menu_button.png" id="nav" />
             </header>
             <div data-role="content" class="ui-content" id="content">
                 <!-- application data will goes here -->
@@ -69,7 +72,19 @@
         </div>
         <div data-role="page" id="favoritePage" >
             <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-                 <img src="img/icook_icon.png" /> <img src="img/menu_button.png" id="nav" />
+            	<input data-role="none" class="backto" type="button"  onclick="history.back()" />
+                  <img src="img/menu_button.png" id="nav" />
+                  <input placeholder="חיפוש שם מתכון" type="search" data-role="search" id='search_text_area'>
+            </header>
+            <div data-role="content" class="ui-content" id="content">
+                <!-- application data will goes here -->
+            </div>
+        </div>
+        <div data-role="page" id="resultListPage" >
+            <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
+            	<input data-role="none" class="backto" type="button"  onclick="history.back()" />
+                 <img src="img/menu_button.png" id="nav" />
+                 <input placeholder="חיפוש שם מתכון" type="search" data-role="search" id='search_text_area'>
             </header>
             <div data-role="content" class="ui-content" id="content">
                 <!-- application data will goes here -->
@@ -77,7 +92,9 @@
         </div>
         <div data-role="page" id="myRecipesPage" >
             <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-                 <img src="img/icook_icon.png" /> <img src="img/menu_button.png" id="nav" />
+            	<input data-role="none" class="backto" type="button"  onclick="history.back()" />
+              <img src="img/menu_button.png" id="nav" />
+              <input placeholder="חיפוש שם מתכון" type="search" data-role="search" id='search_text_area'>
             </header>
             <div data-role="content" class="ui-content" id="content">
                 <!-- application data will goes here -->
@@ -86,12 +103,12 @@
         <div data-role="panel" data-position="right" data-display="push" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
             <ul data-role="listview" >
                 <li data-icon="delete"><a href="#" data-rel="close">סגור</a></li>
-                <li><a href="#">דף אישי</a></li>
-                <li><a href="#">חיפוש מהיר</a></li>
-                <li><a href="#">חיפוש מתקדם</a></li>
+               <!-- <li><a href="#">דף אישי</a></li>
+                <li><a href="#">חיפוש מהיר</a></li>-->
+                <li><a href="#filterPage">חיפוש מתקדם</a></li>
                 <li><a href="#">הוספת מתכון</a></li>
-                <li><a href="#">המועדפים שלי</a></li>
-                <li><a href="#">המתכונים שלי</a></li>
+                <li><a href="#favoritePage">המועדפים שלי</a></li>
+                <li><a href="#myRecipesPage">המתכונים שלי</a></li>
             </ul>
         </div>
         
