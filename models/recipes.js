@@ -24,10 +24,11 @@ var recipeSchema = new Schema(
             date: Date
         }
     ],
-    user: Number,
+    user: Number, // add
+    username: String, // add
     images: { type : Array , "default" : [] },
     accessories: { type : Array , "default" : [] }, 
-    kosher: Boolean,
+    kosher: Number, // change
     dairy: Number, 
     time: Number,
     specialPopulations: { type : Array , "default" : [] }, 
