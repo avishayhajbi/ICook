@@ -40,7 +40,7 @@ app.set('view engine', 'ejs');
 //--------------------------------Connect to mongodb using Mongoose--------------------------------//
 //The server option auto_reconnect is defaulted to true
 var options = {
-    db: { native_parser : true },
+    db: { native_parser : true , upsert: true},
     server: { poolSize: 5 },
     //replset: { rs_name: 'myReplicaSetName' },
     //user: 'b23c6d0f964532',

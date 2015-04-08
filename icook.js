@@ -89,7 +89,7 @@ router.post("/icook/insertRecipe", multipartMiddleware ,function(req, res)
     {
         console.log("data is: " + data);
             
-        db.model('recipes').update(data, function (err, result)
+        db.model('recipes').update({id:data.id},{$set:data}, function (err, result)
         {
             if (err) 
             {
