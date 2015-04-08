@@ -84,8 +84,9 @@ router.post("/auxiliary/updateRate", function(req, res)
     if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
     {
         console.log("rate is: " + data);
-            
-        db.model('recipes').update({ id:data.id }, {$set:data}, function (err, result)
+        data.id = parseInt (data.id,10);
+        data.rate = parseInt(data.rate,10);
+        db.model('recipes').update({ id:data.id }, {$set:{rate:data.rate}}, function (err, result)
         {
             if (err) 
             {
@@ -93,6 +94,7 @@ router.post("/auxiliary/updateRate", function(req, res)
                 r.status = 0;
                 r.desc = "--> Err <-- : " + err;
                 res.json(r);
+                return;
             }
             
             if (result)
@@ -101,6 +103,7 @@ router.post("/auxiliary/updateRate", function(req, res)
                 r.status = 1;
                 r.info = (result.length)?result[0]:[];
                 res.json(r);
+                return;
             }
         });
 
@@ -151,9 +154,6 @@ router.post("/auxiliary/updateFavorite", function(req, res)
             {
                 if (result.length)
                 {
-                    
-                    
-                    
 
                     var rid = parseInt(data.recipeId,10);
                     var index = result[0].favorites.indexOf(rid);
@@ -277,6 +277,8 @@ router.post("/auxiliary/simpleFilter", function(req, res)
         return;     
     }    
 });
+
+
 
 router.post("/auxiliary/advancedFilter", function(req, res) 
 {
