@@ -13,7 +13,21 @@ function initPageCss() {
 	$("[data-role=content]").css("height", window.innerHeight-53 + "px");
 }
 $(window).on('hashchange', function(e) {
-  //console.log(e.originalEvent) //oldURL newURL
+	//console.log(e.originalEvent) //oldURL newURL
+	if (e.originalEvent.newURL.indexOf('#filterPage') != -1 ){
+  		console.log('need to update the page with ajax');
+  		$.ajax({
+			type : "GET",
+			url : 'http://imcook.herokuapp.com/auxiliary/getCategories/?lang='+userLang,
+			async : false,
+			dataType : 'json',
+			success : ajax_callBack,
+			error : function(objRequest, errortype) {
+				console.log(errortype);
+				console.log("change to error func");
+			}
+		});
+	}
 });
 $(document).on("click", '[data-role=footer]', function (e) {
 		
