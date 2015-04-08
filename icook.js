@@ -63,7 +63,7 @@ router.post("/icook/getRecipeById", function(req, res)
     }    
 });
 
-router.post("/icook/insertRecipe" ,function(req, res) 
+router.post("/icook/insertRecipe",multipartMiddleware,function(req, res) 
 {
     var userip = req.connection.remoteAddress.replace(/\./g , '');
     var uniqueid = parseInt( new Date().getTime()+userip,10);
