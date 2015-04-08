@@ -229,10 +229,18 @@ router.post("/auxiliary/simpleFilter", function(req, res)
     if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
     {
         console.log("data is: " + data);
+
         data.accessories = (data.accessories)?data.accessories.map(Number):undefined;
         data.forWho = (data.forWho)?data.forWho.map(Number):undefined;
         data.specialPopulations = (data.specialPopulations)?data.specialPopulations.map(Number):undefined;
-        db.model('recipes').find( { $and: [
+
+        data.user = (data.user)?parseInt(data.user,10):undefined;
+        data.kosher = (data.kosher)?parseInt(data.kosher,10):undefined;
+        data.dairy = (data.dairy)?parseInt(data.dairy,10):undefined;
+        data.category = (data.category)?parseInt(data.category,10):undefined;
+
+        console.log(JSON.stringify(data))
+        db.model('recipes').find( { $or: [
         { category : data.category || {$exists:true} } , 
         {user : data.user || {$exists:true} }, 
         {dairy : data.dairy || {$exists:true} }, 
