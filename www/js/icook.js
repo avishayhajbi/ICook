@@ -44,7 +44,7 @@ function search() {
 }
 
 function initPageCss() {
-	$("[data-role=content]").css("height", window.innerHeight - 53 + "px");
+	$("[data-role=content]").css("height", window.innerHeight - 52 + "px");
 }
 
 
@@ -75,16 +75,17 @@ $(function () {
 	$("[data-role=panel]").enhanceWithin().panel();
 });
 
-$(document).on("pageinit", "[data-role='page']", function(event) {
-	$("[data-role='panel']").on("panelopen", function(event, ui) {
-		//$('body').css("overflow", "hidden").on("touchmove", false);
-		$('html').css("overflow-x", "hidden")
-	});
+$(document).on("pageinit", "[data-role='page']", function (event) {   
+    $("[data-role='panel']").on("panelopen", function (event, ui) { 
+        console.log("panel open")
+        $('html').css("overflow", "hidden")
+    });
 
-	$("[data-role='panel']").on("panelclose", function(event, ui) {
-		//$('body').css("overflow", "auto").off("touchmove");
-		$('html').css("overflow", "auto")
-	});
+    $("[data-role='panel']").on("panelclose", function (event, ui) {
+        console.log("panel close")
+        $('html').css("overflow", "auto")
+    });
+    
 });
 function updateCategories(){
 	$.ajax({
