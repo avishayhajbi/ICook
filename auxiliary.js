@@ -150,25 +150,35 @@ router.post("/auxiliary/updateFavorite", function(req, res)
             if (result)
             {
                 if (result.length)
-                db.model('users').update({ email:data.email }, {$set:{favorites: result[0].favorites.push(data.id) } }, function (err, result)
                 {
-                    if (err) 
-                    {
-                        console.log("--> Err <-- : " + err);
-                        r.status = 0;
-                        r.desc = "--> Err <-- : " + err;
-                        res.json(r);
+                    var temparr;
+                    function contains(a, obj) {
+                        return a.some(function(element){return element == obj;})
                     }
-                    
-                    if (result)
+                    if (contains(result[0].favorites,data.recipeId)){
+                        temparr = result[0].favorites.slice(data.recipeId,-1)
+                    }
+                    else temparr = result[0].favorites.push(data.recipeId)
+                    db.model('users').update({ email:data.email }, {$set:{favorites: temparr } }, function (err, result)
                     {
+                        if (err) 
+                        {
+                            console.log("--> Err <-- : " + err);
+                            r.status = 0;
+                            r.desc = "--> Err <-- : " + err;
+                            res.json(r);
+                        }
                         
-                        console.log("the result is: " + result.length);
-                        r.status = 1;
-                        r.info = (result.length)?result[0]:[];
-                        res.json(r);
-                    }
-                });
+                        if (result)
+                        {
+                            
+                            console.log("the result is: " + result.length);
+                            r.status = 1;
+                            r.info = (result.length)?result[0]:[];
+                            res.json(r);
+                        }
+                    });
+                }
                 else
                 {
                         console.log("the result is: " + result.length);
