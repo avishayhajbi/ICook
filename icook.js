@@ -192,6 +192,83 @@ router.post("/icook/getUserFavorites",function(req, res)
     }   
 });
 
+
+router.post("/icook/getUserRecipes",function(req, res) 
+{
+    var r = {};
+    try
+    {
+        // try to parse the json data
+        data = req.body;
+    }
+    catch(err)
+    {
+        console.log("failure while parsing the request, the error:", err);
+        r.status = 0;
+        r.desc = "failure while parsing the request";
+        res.json(r);
+        return;
+    }
+    console.log(JSON.stringify(data))
+
+    
+    if ( data && data != "" )   // if data property exists in the request is not empty
+    {
+        db.model('users').find({ email:data.email }, { recipes:true ,_id : false }, function (err, result)
+        {
+            if (err) 
+            {
+                console.log("--> Err <-- : " + err);
+                r.status = 0;
+                r.desc = "--> Err <-- : " + err;
+                res.json(r);
+            }
+            
+            if (result)
+            {
+                console.log(result)
+                if (result.length)
+                db.model('recipes').find( { id : { $in : result[0].recipes } || {$exists:true} }, { _id : false }, function (err, result)
+                {
+                    if (err) 
+                    {
+                        console.log("--> Err <-- : " + err);
+                        r.status = 0;
+                        r.desc = "--> Err <-- : " + err;
+                        res.json(r);
+                        return;
+                    }
+                    
+                    if (result)
+                    {
+                        console.log("the result is: " + result.length);
+                        r.status = 1;
+                        r.info = (result.length)?result:[];
+                        res.json(r);
+                        return;
+                    }
+                });
+                else{
+                    console.log("the result is: " + result.length);
+                    r.status = 1;
+                    r.info = (result.length)?result[0]:[];
+                    res.json(r);
+                }
+            }
+        });
+       
+
+    }
+    else
+    {
+        console.log("data propery does not exist in the query or it is empty");
+        r.status = 0;
+        r.desc = "data propery does not exist in the query or it is empty";
+        res.json(r);  
+        return;     
+    }   
+});
+
 router.post("/icook/updateRecipe", function(req, res) 
 {   
     var recipeId, data;
