@@ -89,7 +89,7 @@ router.post("/icook/insertRecipe" ,function(req, res)
     
     if ( data && data != "" )   // if data property exists in the request is not empty
     {
-        console.log("data is: " + data);
+        console.log("data is: " + JSON.stringify(data));
           new recipes(req.body).save(function (e) {
             res.send('item saved');
           });
