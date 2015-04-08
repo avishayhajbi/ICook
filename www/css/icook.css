@@ -27,11 +27,11 @@ html {
 }
 .backto{
 background-image: url('../img/backButton.png') !important;
-  width: 48px;
+  width: 45px;
   background-size: 100% 100%;
   margin: 8px 5px 0 6px;
   float: left;
-  height: 36px;
+  height: 35px;
   border: none; 
    border-radius: 5px; 
    background: transparent; 
