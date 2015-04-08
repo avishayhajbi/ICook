@@ -25,8 +25,15 @@ $(document).on("click", '.topImg', function() {
 		
 		$(".countLike").html(newValue);
 	}
-
 });
+$(document).on("click", '.topImgStar', function() {
+	if ($(this).hasClass("selectedImgStar")) {
+		$(this).removeClass("selectedImgStar").attr("src","img/star.png");
+	} else {
+		$(this).addClass("selectedImgStar").attr("src","img/yellohStar.png");
+	}
+})
+
 
 $(window).resize(function() {
 	initPageCss();
@@ -45,6 +52,15 @@ $(window).on('hashchange', function(e) {
 	console.log(e.originalEvent)//oldURL newURL
 	if (e.originalEvent.newURL.indexOf('#recipePage') != -1) {
 		//viewRecipe();
+	}
+	if (e.originalEvent.newURL.indexOf('#registrationPage') != -1) {
+		//viewRegistration();
+	}
+	if (e.originalEvent.newURL.indexOf('#favoritePage') != -1) {
+		//viewFavorite();
+	}
+	if (e.originalEvent.newURL.indexOf('#myRecipesPage') != -1) {
+		//viewMyRecipes();
 	}
 });
 $(document).on("click", '[data-role=footer]', function(e) {
@@ -80,31 +96,99 @@ function updateCategories(){
 		error : errorCallback
 	});
 }
-function viewRecipe() {
+function updateRate(){
+	var rate=parseInt($('.countLike')[0].innerHTML,10);
 	$.ajax({
-		url : "jsons/file.json",
+		//url : "imcook.herokuapp.com/auxiliary/getCategories/?lang=he",
+		url : "http://imcook.herokuapp.com/icook/updateRate",
 		type : 'post',
+		data:{rate:rate,recipeId:recipeId},
+		dataType : 'json',
+		success : setRateCallback,
+		error : errorCallback
+	});
+}
+function updateFavorites(){
+	$.ajax({
+		//url : "imcook.herokuapp.com/auxiliary/getCategories/?lang=he",
+		url : "http://imcook.herokuapp.com/icook/updateFavorite",
+		type : 'post',
+		data:{email:user,recipeId:recipeId},
+		dataType : 'json',
+		success : setFavoriteCallback,
+		error : errorCallback
+	});
+}
+var recipeId=123;
+var user="guest@gmail.com";
+function viewRecipe() {
+	console.log("viewRecipe")
+	$.ajax({
+		url : "http://imcook.herokuapp.com/icook/getRecipeById",
+		type : 'post',
+		data:{recipeId:recipeId},
+		contantType:"application/json",
 		dataType : 'json',
 		success : viewRecipeCallback,
 		error : errorCallback
 	});
 };
+
+function viewFavorite(){
+	console.log();
+	$.ajax({
+		url : "jsons/file.json",
+		type : 'post',
+		data:{recipeId:recipeId},
+		contantType:"application/json",
+		dataType : 'json',
+		success : viewFavoriteCallback,
+		error : errorCallback
+	});
+}
+function viewMyRecipes(){
+		console.log();
+	$.ajax({
+		url : "jsons/file.json",
+		type : 'post',
+		data:{recipeId:recipeId},
+		contantType:"application/json",
+		dataType : 'json',
+		success : viewMyRecipesCallback,
+		error : errorCallback
+	});
+}
+function setFavoriteCallback(data){
+	console.log(data)
+}
+function setRateCallback(data){
+	console.log(data)
+}
 function getCategoriesCallback(data){
 	categories=data.info;
 	console.log("categories",categories)
-	viewRecipe();
+	//viewRecipe();
+	//viewFavorite();
+	viewMyRecipes();
 }
 function viewRecipeCallback(app) {
+	if(app.status==0)return;
+	app=app.info;
+	console.log(app)
 	var r;
 	var page = $("#recipePage #content");
 	var container = $("<div>");
 	//like Image
+	
+	container.append($("<img>").attr('src','img/star.png').addClass('topImgStar'));
 	container.append($("<img>").attr('src','img/smalLike.png').addClass('topImg').css({"opacity":"0.4"}));
 	//who much likes
 	container.append("<span class='countLike'>" + app.rate + "</span>");
 	//add recipe name
 	container.append("<h2 class='recipeName'>" + app.name + "</h2>");
 	container.append("<h4 class='recipeDes'>" + app.description + "</h4>");
+	
+	container.append("<p class='subTitle'> הועלה על ידי- " + /*app.userName*/"haimyy" + " </p>");
 	
 	var img = $('<img class="imgRecipe">');
 	img.attr('src', app.images[0]);
@@ -160,10 +244,117 @@ function viewRecipeCallback(app) {
 		console.log(val);
 		secPreparation.append((index + 1) + "." + val + " </br>");
 	});
+	var label=("<p>ובתאבון..</p>");
+	secPreparation.append(label);
 	container.append(secPreparation);
+	
+	//commentes
+	/*var commentSection = "<section class='SecComment'> ";
+	commendSection+=("<h2 class=titleComment>תגובות</h2>");
+	commendSection+=("<img src='img/iconComment.png' class=imgComment></section>");
+	container.append(commentSection);
+	
+	var commentsList =$("<section class='napkin comments'> ")
+	var ul = $("<ul class='listComment'>");
+	$.each(app.comments, function(index, val) {
+		ul.append("<li>"+val.email+": "+val.comment+"</li>");
+	});
+	commentsList.append(ul);
+	container.append(commentsList);
+	
+	var form=$("<form>").attr({"method":"post","action":"#","id":"commentform"}).addClass("formcomment");
+	var inputComment=$('<input>').attr({"name":"comments","type":"text"}).addClass("inputComment");
+	var inputSubmit=$('<input>').attr({"type":"submit","value":"שלח"}).addClass("inputSubmit");
+	form.append(inputComment);
+	form.append(inputSubmit);
+	
+	container.append(form);*/
+	
+	page.append(container);
+}
+$("#commentform").submit(function(e){
+	e.preventDefault();
+});
+//Registration page
+function viewPageRegistration(){
+	console.log("register")
+	var page = $("#registrationPage #content");
+	var container = $("<div>");
+	var logoImg=$("<img>").attr("src","img/logo.png");
+	container.append(logoImg);
+	/*var regDiv=$("<div>").addClass("regDiv");
+	regDiv.append("<h3>הירשם</h3>");
+	container.append(regDiv);
+	var userRegDiv=$("<div>").addClass("regDiv");
+	userRegDiv.append("<h3>משתמש רשום</h3>");
+	container.append(userRegDiv);*/
 	page.append(container);
 }
 
+function viewFavoriteCallback(data){
+	console.log("favoritePage" + data.name);
+	
+	var recipeList=[data,data,data,data,data]
+	
+	var page = $("#favoritePage #content");
+	var container = $("<div>");
+	container.append("<h2 class=titleFavorite>המועדפים שלי</h2>")
+	ulFavor=("<ul>");
+	var li;
+	var img;
+	var div;
+	var str;
+	$.each(recipeList,function( index,val){
+		li=("<li class='napkin listFavorite'>");
+		li+=("<img src='"+ val.images[0]+ "'>");
+		li+=("<div calss=recipeListName>"+val.name+"</br>"+ func(val.forWho)+"</div>");
+		
+		li+="</li>"
+		ulFavor+=(li);
+	});
+	container.append(ulFavor);
+
+	page.append(container);
+}
+//myRecipesPage
+function viewMyRecipesCallback(data){
+	console.log("MyRecipesPage" + data.name);
+	
+	var recipeList=[data,data,data,data,data]
+	
+	var page = $("#myRecipesPage #content");
+	var container = $("<div>");
+	container.append("<h2 class=titleFavorite>המתכונים שלי</h2>")
+	ulFavor=("<ul>");
+	var li;
+	var img;
+	var div;
+	var str;
+	$.each(recipeList,function( index,val){
+		li=("<li class='napkin listFavorite'>");
+		li+=("<img src='"+ val.images[0]+ "'>");
+		li+=("<div calss=recipeListName>"+val.name+"</br>"+ func(val.forWho)+"</div>");
+		
+		li+="</li>"
+		ulFavor+=(li);
+	});
+	container.append(ulFavor);
+
+	page.append(container);
+}
+
+function func(app){
+	var forWho=("<ul>");
+	$.each(app,function(index, val){
+		r=$.grep(categories.forWho.res, function(e){ return e.id == val; });
+		console.log(r[0].key)
+		forWho+=("<li class='subTitleFavorite'> "  +r[0].key	 + " </li>");
+		
+	});
+	forWho+=("</ul>")
+	console.log(forWho);
+	return forWho;
+} 
 function errorCallback(errortype) {
 	console.log(errortype)
 }
