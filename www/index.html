@@ -1,62 +1,210 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
-        <title>ICook</title>
-        <!-- external jquery -->       
-        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.42.min.js"></script> -->
-        
-        <!-- internal jquery --> 
-        <link rel="stylesheet" href="css/jquerymobile.css">
-        <script src="js/jquery.js"></script>
-        <script src="js/jquerymobile.js"></script> 
-        
-        <link rel="stylesheet" type="text/css" href="css/icook.css" />
-        <script type="text/javascript" src="js/icook.js"></script>
-    </head>
-    <body>
-        <div data-role="page" id="welcomePage" >
-            <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-                <img src="img/icook_icon.png" width="130" height="30"/> <a href="#nav-panel"><img src="img/menu_button.png" width="30" height="30"/></a> 
-            </header>
-            <div data-role="content" class="ui-content" id="content">
-                <!-- application data will goes here -->
-                <p>welcome</p>
-            </div>
-        </div>
-        
-        <div data-role="page" id="filterPage" >
-            <header data-role="header" data-position="fixed" data-tap-toggle="false"> 
-                <img src="img/icook_icon.png" width="130" height="30"/> <a href="#nav-panel"><img src="img/menu_button.png" width="30" height="30"/></a>  
-            </header>
-            <div data-role="content" class="ui-content" id="content">
-                <!-- application data will goes here -->
-                <p>filter</p>
-            </div>
-        </div>
-        
-        <div data-role="panel" data-position="right" data-display="push" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
-            <ul data-role="listview" >
-                <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-                <li><a href="#panel-fixed-page2">Accordion</a></li>
-                <li><a href="#panel-fixed-page2">Ajax Navigation</a></li>
-                <li><a href="#panel-fixed-page2">Accordion</a></li>
-                <li><a href="#panel-fixed-page2">Ajax Navigation</a></li>
-                <li><a href="#panel-fixed-page2">Accordion</a></li>
-                <li><a href="#panel-fixed-page2">Ajax Navigation</a></li>
-                <li><a href="#panel-fixed-page2">Accordion</a></li>
-                <li><a href="#panel-fixed-page2">Ajax Navigation</a></li>
-                <li><a href="#panel-fixed-page2">Accordion</a></li>
-                <li><a href="#panel-fixed-page2">Accordion</a></li>
-            </ul>
-        </div>
-        
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+		<title>ICook</title>
+		<!-- external jquery -->
+		<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.42.min.js"></script> -->
+
+		<!-- internal jquery -->
+		<link rel="stylesheet" href="css/jquerymobile.css">
+		<script src="js/jquery.js"></script>
+		<script src="js/jquerymobile.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/icook.css" />
+		<script type="text/javascript" src="js/icook.js"></script>
+		<script type="text/javascript" src="js/avc.js"></script>
+
+	</head>
+	<body>
+		<div data-role="page" id="welcomePage" >
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">
+				<img src="img/icook_icon.png" width="130" height="30"/><a href="#nav-panel"><img src="img/menu_button.png" width="30" height="30"/></a>
+			</header>
+			<div data-role="content" class="ui-content" id="content">
+				<!-- application data will goes here -->
+				<p>
+					welcome
+				</p>
+			</div>
+		</div>
+
+		<div data-role="page" id="addRecipePage" >
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">
+				<img src="img/icook_icon.png" width="130" height="30"/><a href="#nav-panel"><img src="img/menu_button.png" width="30" height="30"/></a>
+			</header>
+
+			<div data-role="content" class="ui-content" id="content">
+				<form dir="rtl" id="newRecipeForm" method="post" onsubmit="return validateMyForm(this);" >
+					<div id="titlePage" class="gapper" align="center" style="font-size: 30px; color: #8b4132; font-style: oblique;">
+						פרסום מתכון
+
+					</div>
+
+					<div class="gapper" >
+						<label> <span class="testRight">שפת המתכון</span> </label>
+						<span class="formField">
+							<fieldset data-role="controlgroup" data-type="horizontal" style="text-align: center;margin: auto;position: relative;align-content: center;">
+
+								<input name="language" id="language_he" value="he" checked type="radio" onchange='getCategories();'>
+								<label for="language_he" id = "heT">עברית</label>
+								<input name="language" id="language_en" value="en" type="radio" onchange='getCategories();'>
+								<label for="language_en" id = "enT">אנגלית</label>
+							</fieldset> </span>
+					</div>
+
+					<div class="gapper"  >
+						<label> <span class="testRight" id="categoryT">קטגוריה</span> </label>
+						<select name="category" id="categorySelect">
+							
+						</select>
+					</div>
+
+					<div class="gapper" >
+						<label for="name"> <span class="testRight" id="nameT">שם המנה</span> <span class="formField" id="nameR">
+								<input type="text" name="name" id="nameV" placeholder="לדוג': פסטה בסגנון ים-תיכוני"  style="text-align: right;">
+							</span> </label>
+					</div>
+
+					<div >
+						<label for="description"> <span class="testRight" id="descriptionT">תאור המנה</span> <span class="formField">
+								<input type="text" name="description" id="description" placeholder="">
+							</span> </label>
+					</div>
+
+					<div class="gapper" >
+						<label for="ingredients"> <span class="testRight" id="ingredientsT">מצרכים</span> <span class="formField">
+								<div class="ingredients_wrap">
+
+									<div style="text-align: center;margin: auto;position: relative;align-content: center;">
+										<input type="text" name="ingredients[]" placeholder="מוצר" class="firstIngredient ingredients_i" id="firstIngredient">
+										<input type="text" name="amount[]" placeholder="כמות" class="firstAmount amounts_i" id="firstAmount">
+									</div>
+								</div> </span> </label>
+					</div>
+
+					<div class="gapper" >
+						<label for="preparation"> <span class="testRight"	id="preparationT" style="font-size: 20px;	color: #8b4132;	font-style: oblique;">תהליך ההכנה</span> <span > 								<textarea cols="35" rows="20" id="preparation" name="preparation" ></textarea> </span> </label>
+					</div>
+
+					<div >
+						<label for="level"> <span class="testRight" id="levelT">רמת קושי</span> <span class="formField">
+								<input type="range" name="level" id="level" value="5" min="1" max="10" data-show-value="true" data-popup-enabled="true" data-hightlight="true">
+							</span> </label>
+					</div>
+
+					<div class="gapper" >
+						<label for="time"> <span class="testRight" id="timeT">זמן הכנה</span> <span class="formField">
+								<input type="number" name="time" id="time" value="30" pattern=""  maxlength="3" style="width:50px">
+							</span> </label>
+					</div>
+
+					<div class="gapper" >
+						<label> <span class="testRight" id="dairyT">פרטים נוספים</span> </label>
+						<span class="formField" style="text-align: center;margin: auto;position: relative;align-content: center;">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+
+								<input name="kosher" id="kosher_n" value="2" type="radio">
+								<label for="kosher_n">לא כשר</label>
+								<input name="kosher" id="kosher_y" value="1" checked type="radio">
+								<label for="kosher_y">כשר</label>
+							</fieldset> </span>
+						<span class="formField" style="text-align: center;margin: auto;position: relative;align-content: center;">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+
+								<input name="dairy" id="dairy-1" value="1" checked type="radio">
+								<label for="dairy-1">חלבי</label>
+								<input name="dairy" id="dairy-2" value="3" type="radio">
+								<label for="dairy-2">פרווה</label>
+								<input name="dairy" id="dairy-3" value="2" type="radio">
+								<label for="dairy-3">בשרי</label>
+							</fieldset> </span>
+					</div>
+
+					<div  class="gapper" >
+						<label> <span class="testRight" id="specialpopulationT" for="specialpopulation">התאמה לאוכלוסיות מיוחדות </span> </label>
+						<fieldset data-role="controlgroup" id="specialpopulation" data-type="horizontal" ></fieldset>
+					</div>
+
+					<div  class="gapper" >
+						<label for="accessories"> <span class="testRight" id="accessoriesT">אביזרים </span> </label>
+						<fieldset data-role="controlgroup" id="accessories" data-type="horizontal" data-role="fieldcontain"></fieldset>
+					</div>
+
+					<div  class="gapper" >
+						<label for="forWho"> <span class="testRight" id="forWhoT">למי מיועד </span> </label>
+						<fieldset data-role="controlgroup" id="forWho" data-type="horizontal" data-role="fieldcontain"></fieldset>
+					</div>
+
+					<div class="gapper" >
+						<label for="sb"> <span class="formField">
+								<input type="submit" id="sb" value="שלח" style="width:50%;" />
+							</span> </label>
+					</div>
+
+					<input type="hidden" name="user" id="user" value="0"/>
+					<input type="hidden" name="username" id="username" value="guest"/>
+					<input type="hidden" name="email" id="email" value="guest@gmail.com"/>
+					<input type="hidden" name="date" id="date"/>
+					<input type="hidden" name="commodities" id="commodities" value=""/>
+				</form>
+			</div>
+		</div>
+
+		<div data-role="page">
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">
+				<img src="img/icook_icon.png" width="130" height="30"/><a href="#nav-panel"><img src="img/menu_button.png" width="30" height="30"/></a>
+			</header>
+			<div data-role="content" class="ui-content" id="content">
+				<!-- application data will goes here -->
+			</div>
+		</div>
+
+		<div data-role="panel" data-position="right" data-display="push" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
+			<ul data-role="listview" >
+				<li data-icon="delete">
+					<a href="#" data-rel="close">Close menu</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Accordion</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Ajax Navigation</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Accordion</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Ajax Navigation</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Accordion</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Ajax Navigation</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Accordion</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Ajax Navigation</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Accordion</a>
+				</li>
+				<li>
+					<a href="#panel-fixed-page2">Accordion</a>
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
 </html>
+
