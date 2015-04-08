@@ -89,19 +89,31 @@ router.post("/icook/insertRecipe",function(req, res)
     
     if ( data && data != "" )   // if data property exists in the request is not empty
     {
-        data.rate=0;
-        data.images=[];
-        data.category = parseInt(date.category,10);
-        data.user = parseInt(data.user,10);
-        data.kosher = parseInt(data.kosher,10);
-        data.dairy = parseInt(data.dairy,10);
-        data.time = parseInt(data.time,10);
-        data.level = parseInt(data.level,10);
-        data.public = true;
-        data.price = 0;
+        // data.rate=0;
+        // data.images=[];
+        // data.category = parseInt(date.category,10);
+        // data.user = parseInt(data.user,10);
+        // data.kosher = parseInt(data.kosher,10);
+        // data.dairy = parseInt(data.dairy,10);
+        // data.time = parseInt(data.time,10);
+        // data.level = parseInt(data.level,10);
+        // data.public = true;
+        // data.price = 0;
         console.log("data is: " + JSON.stringify(data));
           new recipes(data).save(function (e) {
-            res.send('item saved');
+            
+            db.model('users').find({ email:data.email }, { recipes:true ,_id:false}, function (err, result){
+                if (err)res.send(0);
+                else{
+                    result[0].recipes.push(data.id); 
+                    db.model('users').update({ email:data.email }, { $set:{recipes:result[0].recipes } }, function (err, result){
+                        if (err)res.send(0);
+                        else res.send(1);
+                    });
+                }
+            });
+
+            
           });
        
 
