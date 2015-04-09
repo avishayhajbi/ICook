@@ -2,8 +2,8 @@ var recipeId;
 var user = "guest@gmail.com";
 var currentValue, newValue;
 var user = {
-	email : "",
-	fullName : ""
+	email : "guest@gmail.com",
+	fullName : "guest"
 };
 categories = null ;
 
