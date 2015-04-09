@@ -365,7 +365,8 @@ router.post("/icook/insertUser",function(req, res)
 
         console.log("data is: " + JSON.stringify(data));
           new users(data).save(function (e) {
-            res.send(1);
+            if (e) res.json({status:0});
+            res.json({status:1});
             
           });
        
