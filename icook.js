@@ -364,11 +364,30 @@ router.post("/icook/insertUser",function(req, res)
         data.recipes=[];
 
         console.log("data is: " + JSON.stringify(data));
-          new users(data).save(function (e) {
-            if (e) res.json({status:0});
-            res.json({status:1});
+
+        db.model('users').find({ email:data.email }, { _id : false }, function (err, result)
+        {
+            if (err) 
+            {
+                console.log("--> Err <-- : " + err);
+                r.status = 0;
+                r.desc = "--> Err <-- : " + err;
+                res.json(r);
+            }
             
-          });
+            if (result)
+            {
+                if (!result.length)
+                new users(data).save(function (e) {
+                    if (e) res.json({status:0});
+                    res.json({status:1});
+                    
+                  });
+            else  res.json({status:1});
+            }
+        });
+
+          
        
 
     }
