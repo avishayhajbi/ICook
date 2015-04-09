@@ -1,7 +1,10 @@
 var recipeId;
 var user = "guest@gmail.com";
 var currentValue, newValue;
-var userMail;
+var user = {
+	email : "",
+	fullName : ""
+};
 categories = null ;
 
 $(document).ready(function() {
@@ -512,8 +515,9 @@ function signinCallback(authResult) {
 			request.execute(function(resp) {
 				//console.log(resp);
 				// find the primary email of user's account
-				userMail = getPrimaryEmail(resp);
-				console.log(userMail);
+				user.email = getPrimaryEmail(resp);
+				user.fullName = resp.displayName;
+				create_user(user);
 			});
 		});
 	} else {
@@ -525,6 +529,24 @@ function signinCallback(authResult) {
 		console.log('Sign-in state: ' + authResult['error']);
 
 	}
+}
+//mail, fullName
+function create_user(user){
+	$.ajax({
+		type : "post",
+		url : "http://imcook.herokuapp.com/icook/insertUser",
+		data : user,
+		//contentType : "applecation/json",
+		dataType : 'json',
+		success : function(data) {console.log(data); debugger;
+			if (data.status == 0) return;
+			$.mobile.changePage( "#filterPage", { transition: "none", changeHash: true });
+		},
+		error : function(objRequest, errortype) {
+			console.log(errortype);
+			console.log("change to error func");
+		}
+	});
 }
 function getPrimaryEmail(resp) {
 	var primaryEmail;
