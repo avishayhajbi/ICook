@@ -1,5 +1,5 @@
 $(document).ready(function() {	
-	// getCategories();
+	 getCategories();
 });
 
 var lang = "he";
@@ -29,7 +29,7 @@ function getCategories(){
 
 function updateLang(data){
 	// ignored -- user!
-
+	//data= categories;
 	// Hebrew
 	if (data.info.lang == "he"){	
 		// Choose rtl for hebrew, otherwise - ltr
@@ -101,6 +101,8 @@ function updateLang(data){
 }
 
 function createForm(data){
+	//console.log(categories)
+	//data = JSON.parse(window.localStorage.getItem("categories"));
 	console.log("in CREATE FORM");
 	updateLang(data);
 	console.log(data)

@@ -1,7 +1,7 @@
 var recipeId;
 var user = "guest@gmail.com";
 var currentValue, newValue;
-categories = (getItemFromLocalDB("categories"))?JSON.parse(getItemFromLocalDB("categories")):null;
+categories = null ;
 
 $(document).ready(function() {
 	updateCategories();
@@ -102,7 +102,6 @@ function initPageCss() {
 $(window).on('hashchange', function(e) {
 	if (e.originalEvent.newURL.indexOf('#filterPage') != -1) {
 		console.log('need to update the page with ajax');
-		if (!categories)
 		$.ajax({
 			type : "GET",
 			url : 'http://imcook.herokuapp.com/auxiliary/getCategories/?lang=' + userLang,
@@ -125,6 +124,9 @@ $(window).on('hashchange', function(e) {
 		viewMyRecipes();
 	} else if (e.originalEvent.newURL.indexOf('#resultListPage') != -1) {
 		viewResultList(recipe);
+	}
+	else if (e.originalEvent.newURL.indexOf('#addRecipePage') != -1) {
+		updateLang(categories);
 	}
 });
 $(document).on("click", '[data-role=footer]', function(e) {
@@ -248,7 +250,7 @@ function setRateCallback(data) {
 
 function getCategoriesCallback(data) {
 	categories = data.info;
-	window.localStorage.setItem("categories", JSON.stringify(categories));
+	window.localStorage.setItem("categories", JSON.stringify(data.info));
 	console.log("categories", categories)
 	//viewRecipe();
 	//viewFavorite();
@@ -480,5 +482,6 @@ function func(num) {
 }
 
 function errorCallback(errortype) {
+	categories = JSON.parse(window.localStorage.getItem('categories'));
 	console.log(errortype)
 }
