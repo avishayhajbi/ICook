@@ -1,8 +1,8 @@
 var recipeId;
-var user = "guest@gmail.com";
+var user;
 var currentValue, newValue;
 var userMail;
-categories = null ;
+categories = null;
 
 $(document).ready(function() {
 	updateCategories();
@@ -14,12 +14,13 @@ $(document).ready(function() {
 			changeHash : true
 		});
 	});
-	$('#searchByIngredients').on('click', function() {
-		$.mobile.changePage("#searchIngredients", {
-			transition : "none",
-			changeHash : true
-		});
-	});
+	/*
+	 $('#searchByIngredients').on('click', function() {
+	 $.mobile.changePage("#searchIngredients", {
+	 transition : "none",
+	 changeHash : true
+	 });
+	 });*/
 	$('#toRegistrationPage').on('click', function() {
 		$.mobile.changePage("#registrationPage", {
 			transition : "none",
@@ -44,12 +45,16 @@ function freeSearch(temp) {
 		},
 		//contentType : "applecation/json",
 		dataType : 'json',
-		success : function(data) {console.log(data)
+		success : function(data) {
+			console.log(data)
 			if (data.status == 0 || data.info.length == 0)
 				return;
 			recipe = data.info;
 			viewResultList(data.info);
-			$.mobile.changePage( "#resultListPage", { transition: "none", changeHash: true });
+			$.mobile.changePage("#resultListPage", {
+				transition : "none",
+				changeHash : true
+			});
 		},
 		error : function(objRequest, errortype) {
 			console.log(errortype);
@@ -145,15 +150,15 @@ $(window).on('hashchange', function(e) {
 		viewMyRecipes();
 	} else if (e.originalEvent.newURL.indexOf('#resultListPage') != -1) {
 		viewResultList(recipe);
-	}
-	else if (e.originalEvent.newURL.indexOf('#addRecipePage') != -1) {
+	} else if (e.originalEvent.newURL.indexOf('#addRecipePage') != -1) {
 		updateLang(categories);
 	}
 });
 
-function viewRegistration(){
-	
+function viewRegistration() {
+
 }
+
 
 $(document).on("click", '[data-role=footer]', function(e) {
 
@@ -176,6 +181,7 @@ $(document).on("pageinit", "[data-role='page']", function(event) {
 	$("[data-role='panel']").on("panelclose", function(event, ui) {
 		console.log("panel close")
 		$('html').css("overflow-x", "hidden")
+		initPageCss();
 	});
 
 });
@@ -212,7 +218,7 @@ function updateFavorites() {
 		url : "http://imcook.herokuapp.com/icook/updateFavorite",
 		type : 'post',
 		data : {
-			email : user,
+			email : user.email,
 			recipeId : recipeId
 		},
 		dataType : 'json',
@@ -242,7 +248,7 @@ function viewFavorite() {
 		url : "http://imcook.herokuapp.com/icook/getUserFavorites",
 		type : 'post',
 		data : {
-			email : user
+			email : user.email
 		},
 		contantType : "application/json",
 		dataType : 'json',
@@ -257,7 +263,7 @@ function viewMyRecipes() {
 		url : "http://imcook.herokuapp.com/icook/getUserRecipes",
 		type : 'post',
 		data : {
-			email : user
+			email : user.email
 		},
 		contantType : "application/json",
 		dataType : 'json',
@@ -307,7 +313,7 @@ function viewRecipeCallback(app) {
 	container.append("<h2 class='recipeName'>" + app.name + "</h2>");
 	container.append("<h4 class='recipeDes'>" + app.description + "</h4>");
 
-	container.append("<p class='subTitle'> הועלה על ידי- " +app.user+ " </p>");
+	container.append("<p class='subTitle'> הועלה על ידי- " + app.user + " </p>");
 
 	var img = $('<img class="imgRecipe">');
 	img.attr('src', app.images[0]);
@@ -509,7 +515,6 @@ function errorCallback(errortype) {
 	console.log(errortype)
 }
 
-
 // Signin Google-plus
 function signinCallback(authResult) {
 	//console.log('signinCallback '+ authResult);
@@ -525,8 +530,8 @@ function signinCallback(authResult) {
 			request.execute(function(resp) {
 				//console.log(resp);
 				// find the primary email of user's account
-				userMail = getPrimaryEmail(resp);
-				console.log(userMail);
+				user.email = getPrimaryEmail(resp);
+				console.log(user.email);
 			});
 		});
 	} else {
@@ -539,9 +544,10 @@ function signinCallback(authResult) {
 
 	}
 }
+
 function getPrimaryEmail(resp) {
 	var primaryEmail;
-	for (var i = 0; i < resp.emails.length; i++) {
+	for ( i = 0; i < resp.emails.length; i++) {
 		if (resp.emails[i].type === 'account')
 			primaryEmail = resp.emails[i].value;
 	}
