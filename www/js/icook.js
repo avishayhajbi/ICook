@@ -13,7 +13,12 @@ $(document).ready(function() {
 			changeHash : true
 		});
 	});
-
+	$('#searchByIngredients').on('click', function() {
+		$.mobile.changePage("#searchIngredients", {
+			transition : "none",
+			changeHash : true
+		});
+	});
 });
 function keyWasPressed(e) {
 
@@ -57,6 +62,16 @@ $(document).on("click", 'li.listResult', function() {
 	viewRecipeCallback(recipe[id]);
 
 });
+$(document).on("click", 'li.listFavorite', function() {
+
+	var id = $(this).attr("id");
+	console.log(id);
+	id = parseInt(id, 10);
+	console.log(id);
+	viewRecipeCallback(recipe[id]);
+
+});
+
 $(document).on("click", '.topImg', function() {
 
 	if ($(this).hasClass("selectedImg")) {
@@ -149,7 +164,7 @@ $(document).on("pageinit", "[data-role='page']", function(event) {
 
 	$("[data-role='panel']").on("panelclose", function(event, ui) {
 		console.log("panel close")
-		$('html').css("overflow", "auto")
+		$('html').css("overflow-x", "hidden")
 	});
 
 });
@@ -281,7 +296,7 @@ function viewRecipeCallback(app) {
 	container.append("<h2 class='recipeName'>" + app.name + "</h2>");
 	container.append("<h4 class='recipeDes'>" + app.description + "</h4>");
 
-	container.append("<p class='subTitle'> הועלה על ידי- " + /*app.userName*/"haimyy" + " </p>");
+	container.append("<p class='subTitle'> הועלה על ידי- " +app.user+ " </p>");
 
 	var img = $('<img class="imgRecipe">');
 	img.attr('src', app.images[0]);
@@ -395,7 +410,6 @@ function viewPageRegistration() {
 }
 
 function viewFavoriteCallback(data) {
-	console.log("favoritePage" + data.name);
 
 	data = data.info;
 	var page = $("#favoritePage #content");
@@ -473,11 +487,9 @@ function func(num) {
 		r = $.grep(categories.forWho.res, function(e) {
 			return e.id == val;
 		});
-		console.log(r[0].key)
 		forWho += ("<li class='subTitleFavorite'> " + r[0].key + " </li>");
 	});
 	forWho += ("</ul>")
-	console.log(forWho);
 	return forWho;
 }
 
