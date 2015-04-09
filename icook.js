@@ -332,4 +332,53 @@ router.post("/icook/updateRecipe", function(req, res)
         return;     
     }    
 });
+
+
+
+router.post("/icook/insertUser",function(req, res) 
+{
+    var userip = req.connection.remoteAddress.replace(/\./g , '');
+    var uniqueid = parseInt( new Date().getTime()+userip,10);
+    var data;
+    var r = {};
+    console.log(req)
+    try
+    {
+        // try to parse the json data
+        data = req.body;
+    }
+    catch(err)
+    {
+        console.log("failure while parsing the request, the error:", err);
+        r.status = 0;
+        r.desc = "failure while parsing the request";
+        res.json(r);
+        return;
+    }
+    console.log(JSON.stringify(data))
+
+    
+    if ( data && data != "" )   // if data property exists in the request is not empty
+    {
+        data.favorites=[];
+        data.recipes=[];
+
+        console.log("data is: " + JSON.stringify(data));
+          new users(data).save(function (e) {
+            res.send(1);
+            
+          });
+       
+
+    }
+    else
+    {
+        console.log("data propery does not exist in the query or it is empty");
+        r.status = 0;
+        r.desc = "data propery does not exist in the query or it is empty";
+        res.json(r);  
+        return;     
+    }   
+});
+
 module.exports = router;
