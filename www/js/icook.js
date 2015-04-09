@@ -178,7 +178,7 @@ $(document).on("pageinit", "[data-role='page']", function(event) {
 
 	$("[data-role='panel']").on("panelclose", function(event, ui) {
 		console.log("panel close")
-		$('html').css("overflow-x", "hidden")
+		$('html').css("overflow", "hidden")
 	});
 
 });
