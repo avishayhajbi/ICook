@@ -135,10 +135,10 @@ function changeButtons(){
 		var restSpace = windowHeight - top_upto_buttons;
 		var locateIn = restSpace - 56;
 		
-		$('#buttonsContainer').css('position', 'relative');
-		$('#buttonsContainer').css('top', locateIn+'px');
+		//$('#buttonsContainer').css('position', 'relative');
+		//$('#buttonsContainer').css('top', locateIn+'px');
 	}else{
-		$('#buttonsContainer').removeAttr('style');
+		//$('#buttonsContainer').removeAttr('style');
 	}
 }
 function disable_skip_button(){
@@ -165,7 +165,7 @@ function userOnclickAnswer(tag){
 	obj.next(tag);
 }
 function showResults(){
-	console.log('show results');
+	console.log('show results'+JSON.stringify(jsonAnswers));
 	$.ajax({
 		type : "post",
 		url : 'http://imcook.herokuapp.com/auxiliary/simpleFilter',
