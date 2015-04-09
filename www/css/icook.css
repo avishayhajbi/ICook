@@ -104,6 +104,15 @@ header div {
 }
 #categoryContainer > li:last-child {
 }
+#searchByIngredients{
+    background: #8B4352;
+  text-align: -webkit-right;
+  padding: 5px 10px 5px 0;
+  font-family: Arial;
+  font-size: 18px;
+  color: #ffffff;
+}
+
 #search_text_area {
 	padding-left: 4.2em;
 	padding-top: 0px;
@@ -214,6 +223,7 @@ body .ui-li .ui-li-desc {
 	margin: 3px 45px 3px 45px;
 	font-weight: bold;
 	font-size: 180%;
+	color: #494949;
 }
 #categoryContainer {
 	text-align: center;
@@ -245,7 +255,6 @@ body .ui-li .ui-li-desc {
 	color: white;
 }
 #buttonsContainer {
-	  position: fixed !important;
 }
 #searchButton {
 	width: 80%;
