@@ -10,7 +10,7 @@ var cloudinary = require('cloudinary');
 var Q = require('q');
 var assert = require('assert');
 
-router.get("/auxiliary/getCategories/:lang?", function(req, res) 
+router.get("/auxiliary/getCategories/:lang?:check?", function(req, res) 
 {
     var lang;
 	var r = {};
