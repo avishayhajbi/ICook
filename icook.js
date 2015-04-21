@@ -69,7 +69,7 @@ router.post("/icook/insertRecipe",function(req, res)
     var uniqueid = parseInt( new Date().getTime()+userip,10);
     var data;
     var r = {};
-    console.log(req)
+   
     
   var form = new formidable.IncomingForm();
  
@@ -101,19 +101,20 @@ router.post("/icook/insertRecipe",function(req, res)
   
   form.on('end', function(error, fields, files) 
   {
+            console.error(fields);
          new Recipe(fields).save(function (e) {
-            db.model('users').find({ email:data.email }, { recipes:true ,_id:false}, function (err, result){
-                if (err)res.send(1);
-                else{
-                    result[0].recipes.push(data.id); 
-                    db.model('users').update({ email:data.email }, { $set:{recipes:result[0].recipes } }, function (err, result){
-                        if (err) res.send(1);
-                        else res.send(0);
-                    });
-                }
-            });
-          });
+        db.model('users').find({ email:data.email }, { recipes:true ,_id:false}, function (err, result){
+            if (err)res.send(1);
+            else{
+                result[0].recipes.push(data.id); 
+                db.model('users').update({ email:data.email }, { $set:{recipes:result[0].recipes } }, function (err, result){
+                    if (err) res.send(1);
+                    else res.send(0);
+                });
+            }
         });
+      });
+    });
 });
 
 router.post("/icook/getUserFavorites",function(req, res) 
