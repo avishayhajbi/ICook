@@ -73,7 +73,7 @@ router.post("/icook/insertRecipe",function(req, res)
     
   var form = new formidable.IncomingForm();
  
-  form.parse(request, function(error, fields, files) 
+  form.parse(req, function(error, fields, files) 
   {
       console.log('-->PARSE<--');
       //logs the file information 
