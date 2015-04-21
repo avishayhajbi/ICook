@@ -1,29 +1,83 @@
+g_recipes=[];
 var obj;
-var userLang = 'he';
 var jsonAnswers ={};
-var recipe;
+var getCategoriesUrl = g_domain+"auxiliary/getCategories"
+var getSimpleFilterUrl = g_domain+"auxiliary/simpleFilter"
 
-function search(){
-	console.log("search");
+function getCategories(){
+	activateLoader("...טוען")
+	$.ajax({
+		url : getCategoriesUrl,
+		type : "GET",
+		data : {lang : g_userLang, check: g_categories.check || 1},
+		dataType : "json", 
+		success : getCategoriesSuccess,
+		error : getCategoriesError
+	});
 }
+
+function getCategoriesSuccess(result){
+	if (result.status == 1 || result.status == 2){
+		if (result.status == 1)
+			window.localStorage.setItem('g_categories',JSON.stringify(result.info));
+		g_categories = JSON.parse(window.localStorage.getItem('g_categories'));
+		obj = new filterViews();
+		obj.init(g_categories);
+	}
+	console.log(result);
+	deactivateLoader()
+}
+function getCategoriesError(xhr){
+	console.log(xhr);
+	deactivateLoader();
+}
+
+function filterViews(){
+	this.json;
+	this.issues;
+	this.position=0;
+}
+filterViews.prototype.init = function(jsonData){
+	console.log(jsonData);
+	this.json = jsonData;
+	this.issues = jsonData.issues;
+	// init user answers
+	$.each(jsonData.issues, function(i,val){
+		add_to_user_answers(val ,0);
+	});
+	 $('#categoryChecked').html('');
+	 $('#question').html('');
+	 $('#categoryContainer').html('');
+	 enable_skip_button();
+	 this.show();
+	 console.log(this.issues);
+};
+filterViews.prototype.next = function(){
+	if (this.position < this.issues.length-1){
+		this.position++;
+		this.show();
+	}else{
+		disable_skip_button();
+		showResults();
+	}
+};
+filterViews.prototype.prev = function(){
+	if (this.position>=1){
+		this.position--;
+		this.show();
+		$('#categoryChecked li:last').remove();
+	}
+};
+filterViews.prototype.show = function(){
+	if (this.position!=0) toggle_goBack_button(true);
+	else toggle_goBack_button(false);
+	generate_next_sort(this.json[this.issues[this.position]]);
+};
+
 function skip(){
 	generate_next_sort();
 }
-function ajax_callBack(data){
-	if (data.status == 1) {
-		var jsonData = data.info;
-		obj = new filterViews();
-		obj.init(jsonData);
-		obj.show();
-		emptyMatzaCrumbs();
-	} else {
-		console.log('server status code are not 1');
-		return;
-	}
-}
-function emptyMatzaCrumbs(){
-	$('#categoryChecked').empty();
-}
+
 function generate_next_sort(questionObj){
 	var question = questionObj.question;
 	$('#question').text(question);
@@ -59,44 +113,6 @@ function generate_next_sort(questionObj){
 	});
 }
 
-function filterViews(){
-	this.json;
-	this.issues;
-	this.position=0;
-}
-filterViews.prototype.init = function(jsonData){
-	console.log(jsonData);
-	this.json = jsonData;
-	this.issues = jsonData.issues;
-	// init user answers
-	$.each(jsonData.issues, function(i,val){
-		add_to_user_answers(val ,0);
-	});
-	console.log(this.issues);
-};
-filterViews.prototype.next = function(){
-	if (this.position < this.issues.length-1){
-		this.position++;
-		this.show();
-		changeButtons();
-	}else{
-		disable_skip_button();
-		showResults();
-	}
-};
-filterViews.prototype.prev = function(){
-	if (this.position>=1){
-		this.position--;
-		changeButtons();
-		this.show();
-		$('#categoryChecked li:last').remove();
-	}
-};
-filterViews.prototype.show = function(){
-	if (this.position!=0) toggle_goBack_button(true);
-	else toggle_goBack_button(false);
-	generate_next_sort(this.json[this.issues[this.position]]);
-};
 function add_to_user_answers(type ,id){
 	switch (type) {
 		case 'forWho':
@@ -118,29 +134,8 @@ function toggle_goBack_button(show){
 	}else{
 		$('#goBack').hide();
 	}
-	
 }
-function changeButtons(){
-	var changeButtons = false;
-	if($("#filterPage").hasScrollBar()){
-		changeButtons = true;
-	}else{
-		console.log('dont change buttons');
-	}
-	
-	if (changeButtons){
-		// Calc hight to margin
-		var windowHeight = $(window).height();
-		var top_upto_buttons = $('#categoryContainer').offset().top + $('#categoryContainer').height();
-		var restSpace = windowHeight - top_upto_buttons;
-		var locateIn = restSpace - 56;
-		
-		//$('#buttonsContainer').css('position', 'relative');
-		//$('#buttonsContainer').css('top', locateIn+'px');
-	}else{
-		//$('#buttonsContainer').removeAttr('style');
-	}
-}
+
 function disable_skip_button(){
 	$('#skipButton').css('opacity',0.5);
 	$('#skipButton').removeAttr('onclick');
@@ -164,41 +159,39 @@ function userOnclickAnswer(tag){
 	show_bread_crumbs(tag);
 	obj.next(tag);
 }
-function showResults(){
-	console.log('show results'+JSON.stringify(jsonAnswers));
-	$.ajax({
-		type : "post",
-		url : 'http://imcook.herokuapp.com/auxiliary/simpleFilter',
-		async : false,
-		data : jsonAnswers,
-		dataType : 'json',
-		success : function(data){
-			if (data.status ==1){
-				recipe = data.info;
-				window.location.href = "index.html#resultListPage";
-			}
-		},
-		error : function(objRequest, errortype) {
-			console.log(errortype);
-			console.log("change to error func");
-		}
-	});
-	
-}
 function show_bread_crumbs(tag){
 	var liChecked = $('<li>');
 	//liChecked.id('');
 	if ($('#categoryChecked').children().length > 0){
 		liChecked.attr('id','other_li');
-		liChecked.text(' > '+tag.children[1].innerText);
+		liChecked.text(' | '+tag.children[1].innerText);
 	}else{
 		liChecked.attr('id','first_li');
 		liChecked.text(tag.children[1].innerText);
 	}
 	$('#categoryChecked').append(liChecked);
 }
-(function($) {
-    $.fn.hasScrollBar = function() {
-        return this.get(0).scrollHeight > this.height();
-    };
-})(jQuery);
+function showResults(){
+	activateLoader("...טוען")
+	$.ajax({
+		type : "post",
+		url : getSimpleFilterUrl,
+		async : false,
+		data : jsonAnswers,
+		dataType : 'json',
+		success : function(data){
+			console.log(data)
+			if (data.status ==1){
+				recipes = data.info;
+				viewResultList(recipes);
+				changePageTo("#resultListPage");
+			}
+			deactivateLoader();
+		},
+		error : function(objRequest, errortype) {
+			console.log(errortype);
+			console.log("change to error func");
+			deactivateLoader();
+		}
+	});
+}

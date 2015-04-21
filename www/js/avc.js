@@ -36,7 +36,7 @@ function updateLang(data){
 		$("#newRecipeForm")[0].dir = "rtl";
 		
 		// Update titles
-		$("#titlePage")[0].innerText="פרסום מתכון";
+		$("#langT")[0].innerText="שפת המתכון";
 		$("#heT")[0].innerText="עברית";
 		$("#enT")[0].innerText="אנגלית";
 		$("#categoryT")[0].innerText="קטגוריה";
@@ -55,6 +55,25 @@ function updateLang(data){
 	}
 	// English
 	else {
+				// Choose rtl for hebrew, otherwise - ltr
+		$("#newRecipeForm")[0].dir = "ltr";
+		
+		// Update titles
+		$("#langT")[0].innerText="Language";
+		$("#heT")[0].innerText="Hebrew";
+		$("#enT")[0].innerText="English";
+		$("#categoryT")[0].innerText="Category";
+		$("#nameT")[0].innerText = "Meal name";
+		$("#nameV")[0].placeholder = "example: Strawberry pie...";
+		$("#descriptionT")[0].innerText = "Meal description";
+		$("#ingredientsT")[0].innerText = "Ingredients";
+		$("#preparationT")[0].innerText = "Meal making process";
+		$("#levelT")[0].innerText = "Level of difficulty (1 to 10)";
+		$("#dairyT")[0].innerText = "Additional details";
+		$("#timeT")[0].innerText = "duration of making";
+		$("#specialpopulationT")[0].innerText = "Special populations";
+		$("#accessoriesT")[0].innerText = "Accessories";
+		$("#forWhoT")[0].innerText = "Also for...";
 		
 	}
 	
@@ -63,12 +82,14 @@ function updateLang(data){
 	    console.log(data.info.category.res);
 	    console.log(data.info.category.res.length);
 	    console.log($("#categorySelect"));
+	    $("#categorySelect")[0].innerHTML = "";
 	    for (var i=0; i < data.info.category.res.length; i++){
 	    	console.log("category " + i);
 	    	$("#categorySelect").append('<option value="' + data.info.category.res[i].id + '">' + data.info.category.res[i].key + '</option>');
 	    }
 
-		// specialPopulations - checkbox	
+		// specialPopulations - checkbox
+		$("#specialpopulation")[0].innerHTML = "";	
 		for (var i=0; i < data.info.specialPopulations.res.length; i++){
 			
 	    	$("#specialpopulation").append('<input type="checkbox" name="specialPopulations"  id="sp' + i + '" class="custom" value="' + data.info.specialPopulations.res[i].id + 
@@ -78,6 +99,7 @@ function updateLang(data){
 	    }
 		
 		// accessories - checkbox
+		$("#accessories")[0].innerHTML = "";	
 		for (var i=0; i < data.info.accessories.res.length; i++){			
 	    	$("#accessories").append('<input type="checkbox" name="accessories"  id="acc' + i + '" class="custom" value="' + data.info.accessories.res[i].id + 
 	    	'" data-inline="true">');
@@ -87,6 +109,7 @@ function updateLang(data){
 	    
 		
 		// forWho - checkbox
+		$("#forWho")[0].innerHTML = "";	
 		for (var i=0; i < data.info.forWho.res.length; i++){			
 	    	$("#forWho").append('<input type="checkbox" name="forWho"  id="fh' + i + '" class="custom" value="' + data.info.forWho.res[i].id + 
 	    	'" data-inline="true">');
@@ -307,7 +330,7 @@ function validateMyForm(obj)
 		{
 		    fw.push(parseInt($(this).val()));
 		});
-		
+
 		var acc = new Array();
 		$("input:checkbox[name=accessories]:checked").each(function()
 		{
@@ -321,6 +344,7 @@ function validateMyForm(obj)
      else {
      	kosh = 0;
      	}
+    
     
     var parsed_data = { "date": date.value,
     "email": email.value,
@@ -373,9 +397,17 @@ function validateMyForm(obj)
                 //processData:false,
                 contentType: "application/json",
                 error: function(jqXHR, textStatus, errorMessage) {
-                   console.log("ERROR: " + errorMessage); // Optional
+                  
+    				
+      					 $( "#popupBasic" ).popup();
+      					 window.location.href = "index.html";
+
+  					  
                 },
-                success: function(data) {console.log("SUCCESS: " + data);console.log(data);} 
+                success: function(data) {
+$( "#popupBasic" ).popup();         
+      					 window.location.href = "index.html";       
+} 
             });
 
 

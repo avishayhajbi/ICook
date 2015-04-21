@@ -1,5 +1,4 @@
 * {
-
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
@@ -87,7 +86,7 @@ header div {
 }
 
 .ui-btn .ui-input-btn .ui-corner-all .ui-shadow {
-	background-color: tan;
+	background-color: transparent;
 	float: left;
 }
 
