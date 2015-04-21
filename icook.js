@@ -70,37 +70,38 @@ router.post("/icook/insertRecipe",function(req, res)
     var data;
     var r = {};
     console.log(req)
-    try
-    {
-        // try to parse the json data
-        data = req.body;
-        data.id = uniqueid;
-    }
-    catch(err)
-    {
-        console.log("failure while parsing the request, the error:", err);
+    
+  var form = new formidable.IncomingForm();
+ 
+  form.parse(request, function(error, fields, files) 
+  {
+      console.log('-->PARSE<--');
+      //logs the file information 
+      fields.id = uniqueid;
+
+       console.log(JSON.stringify(fields))
+  });
+  
+  form.on('progress', function(bytesReceived, bytesExpected) 
+  {
+      var percent_complete = (bytesReceived / bytesExpected) * 100;
+      console.log(percent_complete.toFixed(2));
+  });
+
+  form.on('error', function(err) 
+  {
+      console.log("-->ERROR<--");
+      console.error(err);
+      console.log("failure while parsing the request, the error:", err);
         r.status = 0;
         r.desc = "failure while parsing the request";
         res.json(r);
         return;
-    }
-    console.log(JSON.stringify(data))
-
-    
-    if ( data && data != "" )   // if data property exists in the request is not empty
-    {
-        // data.rate=0;
-        // data.images=[];
-        // data.category = parseInt(date.category,10);
-        // data.user = parseInt(data.user,10);
-        // data.kosher = parseInt(data.kosher,10);
-        // data.dairy = parseInt(data.dairy,10);
-        // data.time = parseInt(data.time,10);
-        // data.level = parseInt(data.level,10);
-        // data.public = true;
-        // data.price = 0;
-        console.log("data is: " + JSON.stringify(data));
-          new Recipe(data).save(function (e) {
+  });
+  
+  form.on('end', function(error, fields, files) 
+  {
+         new Recipe(fields).save(function (e) {
             db.model('users').find({ email:data.email }, { recipes:true ,_id:false}, function (err, result){
                 if (err)res.send(1);
                 else{
@@ -112,15 +113,7 @@ router.post("/icook/insertRecipe",function(req, res)
                 }
             });
           });
-    }
-    else
-    {
-        console.log("data propery does not exist in the query or it is empty");
-        r.status = 0;
-        r.desc = "data propery does not exist in the query or it is empty";
-        res.json(r);  
-        return;     
-    }   
+        });
 });
 
 router.post("/icook/getUserFavorites",function(req, res) 
