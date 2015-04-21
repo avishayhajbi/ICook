@@ -31,7 +31,7 @@ router.get("/auxiliary/getCategories/:lang?:check?", function(req, res)
 	
     if ( lang && lang != "" )	// if data.recipeId property exists in the request is not empty
     {
-    	console.log("lang is: " + lang);
+    	console.log("lang is: " + lang , check);
     		
 		db.model('categories').find({ lang:lang }, { _id : false }, function (err, result)
 		//$or: [ { owner : { $in : friends } }, { participants: { $elemMatch: { user : { $in : friends } } } } ] 
@@ -46,7 +46,7 @@ router.get("/auxiliary/getCategories/:lang?:check?", function(req, res)
     		
     	 	if (result)
  			{
-                if (check == result[0].check){
+                if (check != result[0].check){
      				console.log("the result is: " + result.length);
      				r.status = 1;
     		    	r.info = (result.length)?result[0]:[];
