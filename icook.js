@@ -101,7 +101,6 @@ router.post("/icook/insertRecipe",function(req, res)
         // data.price = 0;
         console.log("data is: " + JSON.stringify(data));
           new Recipe(data).save(function (e) {
-            
             db.model('users').find({ email:data.email }, { recipes:true ,_id:false}, function (err, result){
                 if (err)res.send(1);
                 else{
@@ -112,11 +111,7 @@ router.post("/icook/insertRecipe",function(req, res)
                     });
                 }
             });
-
-            
           });
-       
-
     }
     else
     {

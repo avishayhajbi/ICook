@@ -13,8 +13,8 @@ var recipeSchema = new Schema(
             default : []
 		}
 	],
-    name: String,/**/
-    description: String,/**/
+    name: { type : String , "default" : 'No-Name' },
+    description: { type : String , "default" : 'No-Name' },
     preparation: { type : Array , "default" : [] }, /*split*/
     rate: { type : Number , "default" : 0 },
     comments: [
@@ -26,17 +26,16 @@ var recipeSchema = new Schema(
             default : []
         }
     ],
-    //users:{ type : Array , "default" : [] },
-    user: Number, // add
-    username: String, // add
+    user: { type : Number , "default" : 1 },
+    username: { type : String , "default" : 'No-Name' },
     images: { type : Array , "default" : [] },
     accessories: { type : Array , "default" : [] }, 
-    kosher: Number, /**/ 
-    dairy: Number,/**/ 
-    time: Number,
+    kosher:{ type : Number , "default" : 1 },
+    dairy: { type : Number , "default" : 1 },
+    time: { type : Number , "default" : 1 },
     specialPopulations: { type : Array , "default" : [] }, 
-    level: Number,
-    remarks: String,
+    level: { type : Number , "default" : 1 },
+    remarks: { type : String , "default" : '' },
     book: {
         book: { type : Boolean , "default" : false }, 
         name: { type : String , "default" : '' }, 
@@ -44,7 +43,7 @@ var recipeSchema = new Schema(
     },
     forWho: { type : Array , "default" : [] },
     public: { type : Boolean , "default" : true }, 
-    language: String,/**/
+    language: { type : String , "default" : 'he' },
     price:{ type : Number , "default" : 0 }
 	
 });
