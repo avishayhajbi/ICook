@@ -79,4 +79,4 @@ var categorySchema = new Schema(
 	
 });
 	
-mongoose.model('categories', categorySchema);
+Categories = mongoose.model('categories', categorySchema);

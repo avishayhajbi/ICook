@@ -10,14 +10,15 @@ var cloudinary = require('cloudinary');
 var Q = require('q');
 var assert = require('assert');
 
-router.get("/auxiliary/getCategories/:lang?", function(req, res) 
+router.get("/auxiliary/getCategories/:lang?:check?", function(req, res) 
 {
-    var lang;
+    var lang,check;
 	var r = {};
 	try
 	{
         // try to parse the query
         lang = req.query.lang;
+        check = req.query.check || 0;
 	}
 	catch(err)
 	{
@@ -45,10 +46,17 @@ router.get("/auxiliary/getCategories/:lang?", function(req, res)
     		
     	 	if (result)
  			{
- 				console.log("the result is: " + result.length);
- 				r.status = 1;
-		    	r.info = (result.length)?result[0]:[];
-		    	res.json(r);
+                if (check == result[0].check){
+     				console.log("the result is: " + result.length);
+     				r.status = 1;
+    		    	r.info = (result.length)?result[0]:[];
+    		    	res.json(r);
+                }
+                else {
+                    console.log("the result is: " + result.length);
+                    r.status = 2;
+                    res.json(r);
+                }
         	}
 		});
 
@@ -248,7 +256,7 @@ router.post("/auxiliary/simpleFilter", function(req, res)
         { accessories : { $all : data.accessories } || {$exists:true} }, 
         { forWho : { $all : data.forWho } || {$exists:true} }, 
         { specialPopulations : { $all : data.specialPopulations } || {$exists:true} } 
-        ] }, { _id : false }, function (err, result)
+        ] }, { _id : false, name:true, forWho:true, id:true }, function (err, result)
         {
             if (err) 
             {

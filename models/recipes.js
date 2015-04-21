@@ -3,13 +3,14 @@ var Schema = mongoose.Schema;
 
 var recipeSchema = new Schema( 
 {
-    id:Number,
+    id:String,
     date:String,
 	category: Number,/**/
     commodities: [ /**/
 		{
 			name:String,
-			amount:String
+			amount:String,
+            default : []
 		}
 	],
     name: String,/**/
@@ -21,7 +22,8 @@ var recipeSchema = new Schema(
             email:{ type : String , "default" : '' },
             username: { type : String , "default" : '' },
             comment: { type : String , "default" : '' },
-            date: { type : String , "default" : '' }
+            date: { type : String , "default" : '' },
+            default : []
         }
     ],
     //users:{ type : Array , "default" : [] },
@@ -29,7 +31,7 @@ var recipeSchema = new Schema(
     username: String, // add
     images: { type : Array , "default" : [] },
     accessories: { type : Array , "default" : [] }, 
-    kosher: Number, /**/ // change
+    kosher: Number, /**/ 
     dairy: Number,/**/ 
     time: Number,
     specialPopulations: { type : Array , "default" : [] }, 
@@ -47,4 +49,4 @@ var recipeSchema = new Schema(
 	
 });
 	
-recipes = mongoose.model('recipes', recipeSchema);
+Recipe = mongoose.model('recipes', recipeSchema);

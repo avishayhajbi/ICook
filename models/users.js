@@ -4,9 +4,10 @@ var Schema = mongoose.Schema;
 var usersSchema = new Schema( 
 	{
 		email: String,
-	    fullname: String,
-	    favorites:  { type : Array , "default" : [] },
-	    recipes: { type : Array , "default" : [] }
+	    name: String,
+	    image:String,
+	    favorites:  [{ id : String, forWho:{ type : Array , "default" : [] }, name:String , default : [] }],
+	    recipes:  [{ id : String, forWho:{ type : Array , "default" : [] }, name:String , default : [] }],
 	});
 	
-users=mongoose.model('users', usersSchema);
+User =mongoose.model('users', usersSchema);

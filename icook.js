@@ -100,7 +100,7 @@ router.post("/icook/insertRecipe",function(req, res)
         // data.public = true;
         // data.price = 0;
         console.log("data is: " + JSON.stringify(data));
-          new recipes(data).save(function (e) {
+          new Recipe(data).save(function (e) {
             
             db.model('users').find({ email:data.email }, { recipes:true ,_id:false}, function (err, result){
                 if (err)res.send(1);
@@ -337,11 +337,11 @@ router.post("/icook/updateRecipe", function(req, res)
 
 router.post("/icook/insertUser",function(req, res) 
 {
-    var userip = req.connection.remoteAddress.replace(/\./g , '');
-    var uniqueid = parseInt( new Date().getTime()+userip,10);
+    //var userip = req.connection.remoteAddress.replace(/\./g , '');
+    //var uniqueid = parseInt( new Date().getTime()+userip,10);
     var data;
     var r = {};
-    console.log(req)
+    //console.log(req)
     try
     {
         // try to parse the json data
@@ -355,41 +355,38 @@ router.post("/icook/insertUser",function(req, res)
         res.json(r);
         return;
     }
-    console.log(JSON.stringify(data))
+   //console.log(JSON.stringify(data))
 
     
     if ( data && data != "" )   // if data property exists in the request is not empty
     {
-        data.favorites=[];
-        data.recipes=[];
 
         console.log("data is: " + JSON.stringify(data));
 
-        db.model('users').find({ email:data.email }, { _id : false }, function (err, result)
+        db.model('users').findOneAndUpdate({email: data.email}, data , {upsert :false},function (err, result)
         {
+
             if (err) 
             {
                 console.log("--> Err <-- : " + err);
                 r.status = 0;
                 r.desc = "--> Err <-- : " + err;
                 res.json(r);
+                return;
             }
             
-            if (result)
+            else
             {
-                if (!result.length)
-                new users(data).save(function (e) {
-                    if (e) res.json({status:0});
-                    res.json({status:1});
-                    
-                  });
-            else  res.json({status:1});
+                if (!result)
+                    new User(data).save(function (e) {
+                        if (e) res.json({status:0});
+                        res.json({status:1});
+                    });
+                else  res.json({status:1});
+
+                return;
             }
-        });
-
-          
-       
-
+        });      
     }
     else
     {
