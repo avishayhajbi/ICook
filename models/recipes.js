@@ -5,16 +5,16 @@ var recipeSchema = new Schema(
 {
     id:String,
     date:String,
-	category: Number,/**/
+	category: { type : String , "default" : '' },
     commodities: [ /**/
 		{
 			name:String,
-			amount:String,
+			amount:{ type : String , "default" : 0 },
             default : []
 		}
 	],
     name: { type : String , "default" : 'No-Name' },
-    description: { type : String , "default" : 'No-Name' },
+    description: { type : String , "default" : 'No-Description' },
     preparation: { type : Array , "default" : [] }, /*split*/
     rate: { type : Number , "default" : 0 },
     comments: [
@@ -26,12 +26,12 @@ var recipeSchema = new Schema(
             default : []
         }
     ],
-    user: { type : Number , "default" : 1 },
+    user: { type : String , "default" : '' },
     username: { type : String , "default" : 'No-Name' },
     images: { type : Array , "default" : [] },
     accessories: { type : Array , "default" : [] }, 
-    kosher:{ type : Number , "default" : 1 },
-    dairy: { type : Number , "default" : 1 },
+    kosher:{ type : String , "default" : '' },
+    dairy: { type : String , "default" : '' },
     time: { type : Number , "default" : 1 },
     specialPopulations: { type : Array , "default" : [] }, 
     level: { type : Number , "default" : 1 },

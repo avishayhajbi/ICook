@@ -236,26 +236,29 @@ router.post("/auxiliary/simpleFilter", function(req, res)
     
     if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
     {
-        console.log("data is: " + data);
+        console.log("data is: " , data);
 
-        data.accessories = (data.accessories)?data.accessories.map(Number):undefined;
+        /*data.accessories = (data.accessories)?data.accessories.map(Number):undefined;
         data.forWho = (data.forWho)?data.forWho.map(Number):undefined;
-        data.specialPopulations = (data.specialPopulations)?data.specialPopulations.map(Number):undefined;
+        data.specialPopulations = (data.specialPopulations)?data.specialPopulations.map(Number):undefined;*/
+        data.accessories = (data.accessories!=0)?data.accessories:undefined;
+        data.forWho = (data.forWho!=0)?data.forWho:undefined;
+        data.specialPopulations = (data.specialPopulations!=0)?data.specialPopulations:undefined;
 
-        data.user = (data.user)?parseInt(data.user,10):undefined;
-        data.kosher = (data.kosher)?parseInt(data.kosher,10):undefined;
-        data.dairy = (data.dairy)?parseInt(data.dairy,10):undefined;
-        data.category = (data.category)?parseInt(data.category,10):undefined;
+        data.user = (data.user!=0)?data.user:undefined;
+        data.kosher = (data.kosher!=0)?data.kosher:undefined;
+        data.dairy = (data.dairy!=0)?data.dairy:undefined;
+        data.category = (data.category!=0)?data.category:undefined;
 
-        console.log(JSON.stringify(data))
-        db.model('recipes').find( { $or: [
-        { category : data.category || {$exists:true} } , 
+        db.model('recipes').find( { $and: [
+        { category : { $in : ["מנה ראשונה"] } || {$exists:true} }, 
+        /*{ category : data.category || {$exists:true} } , 
         {user : data.user || {$exists:true} }, 
         {dairy : data.dairy || {$exists:true} }, 
         {kosher : data.kosher || {$exists:true} },
-        { accessories : { $all : data.accessories } || {$exists:true} }, 
-        { forWho : { $all : data.forWho } || {$exists:true} }, 
-        { specialPopulations : { $all : data.specialPopulations } || {$exists:true} } 
+        { accessories : { $all : [data.accessories] } || {$exists:true} }, 
+        { forWho : { $all : [data.forWho] } || {$exists:true} }, 
+        { specialPopulations : { $all : [data.specialPopulations] } || {$exists:true} }*/
         ] }, { _id : false, name:true, forWho:true, id:true }, function (err, result)
         {
             if (err) 
