@@ -352,7 +352,7 @@ router.post("/icook/insertUser",function(req, res)
 
         console.log("data is: " + JSON.stringify(data));
 
-        db.model('users').findOneAndUpdate({email: data.email}, data , {upsert :false},function (err, result)
+        db.model('users').findOneAndUpdate({email: data.email}, data , {upsert :true},function (err, result)
         {
 
             if (err) 
