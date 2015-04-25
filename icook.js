@@ -352,7 +352,7 @@ router.post("/icook/insertUser",function(req, res)
 
         console.log("data is: " + JSON.stringify(data));
 
-        db.model('users').findOneAndUpdate({email: data.email}, data , {upsert :true},function (err, result)
+        db.model('users').findOne({email: data.email},function (err, result)
         {
 
             if (err) 
@@ -369,9 +369,10 @@ router.post("/icook/insertUser",function(req, res)
                 if (!result)
                     new User(data).save(function (e) {
                         if (e) res.json({status:0});
-                        res.json({status:1});
+                        res.json({status:1, favorites:[], recipes: []});
                     });
-                else  res.json({status:1});
+                else  
+                    res.json({status:2, favorites: result.favorites, recipes: result.recipes});
 
                 return;
             }

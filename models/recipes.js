@@ -16,7 +16,7 @@ var recipeSchema = new Schema(
     name: { type : String , "default" : 'No-Name' },
     description: { type : String , "default" : 'No-Description' },
     preparation: { type : Array , "default" : [] }, /*split*/
-    rate: { type : Number , "default" : 0 },
+    rate: { users:{ type : Array , "default" : [] }, value:{ type:Number , "default" : 0 } },
     comments: [
         {
             email:{ type : String , "default" : '' },

@@ -91,10 +91,9 @@ router.post("/auxiliary/updateRate", function(req, res)
     
     if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
     {
-        console.log("rate is: " + data);
-        data.id = parseInt (data.id,10);
-        data.rate = parseInt(data.rate,10);
-        db.model('recipes').update({ id:data.id }, {$set:{rate:data.rate}}, function (err, result)
+        console.log("rate is: " , data);
+        data.value = parseInt(data.value,10);
+        db.model('recipes').findOne({ id:data.id }, function (err, result)
         {
             if (err) 
             {
@@ -105,13 +104,47 @@ router.post("/auxiliary/updateRate", function(req, res)
                 return;
             }
             
-            if (result)
+            else if (result)
             {
-                console.log("the result is: " + result.length);
-                r.status = 1;
-                r.info = (result.length)?result[0]:[];
-                res.json(r);
-                return;
+                console.log(data.value)
+                if (data.value == 1){
+                   // if(result.rate.users.indexOf(data.userId) !== -1){
+                        
+                        result.rate.value+=1;
+                        result.rate.users.push(data.userId);
+                    //}
+                    console.log("inc" , result.rate)
+                }
+                else {
+                    //if(result.rate.users.indexOf(data.userId) !== -1){
+                    if (result.rate.value > 0){
+                        result.rate.value-=1;
+                        result.rate.users.splice(result.rate.users.indexOf(data.userId),1);
+                    }
+                    //}
+                    console.log("dec" , result.rate.value)
+                }
+                
+
+                
+                
+                console.log('rate is: ',result.rate)
+                
+                result.save(function (err) {
+                    if(err) {
+                        console.log("--> Err <-- : " + err);
+                        r.status = 0;
+                        r.desc = "--> Err <-- : " + err;
+                        res.json(r);
+                        return;
+                    }
+                    //console.log("the result is: " + result);
+                    r.status = 1;
+                    r.info = result.rate.value;
+                    res.json(r);
+                    return;
+                });
+                
             }
         });
 
@@ -126,7 +159,8 @@ router.post("/auxiliary/updateRate", function(req, res)
     }    
 });
 
-router.post("/auxiliary/updateFavorite", function(req, res) 
+// TODO fix the bugs
+/*router.post("/auxiliary/updateFavorite", function(req, res) 
 {
     var data;
     var r = {};
@@ -146,9 +180,9 @@ router.post("/auxiliary/updateFavorite", function(req, res)
     
     if ( data && data != "" )   // if data.recipeId property exists in the request is not empty
     {
-        console.log("favorite is: " + data);
+        console.log("data is: " , data);
             
-        db.model('users').find({ email:data.email }, { _id:false}, function (err, result)
+        db.model('users').findOne({ email:data.userId }, { _id:false}, function (err, user)
         {
             if (err) 
             {
@@ -158,50 +192,64 @@ router.post("/auxiliary/updateFavorite", function(req, res)
                 res.json(r);
             }
             
-            if (result)
+            if (user)
             {
-                if (result.length)
+                console.log("user found",user)
+                //var index = user.favorites.indexOf(data.recipeId);
+                if (parseInt(data.value)==1)
+                db.model('recipes').findOne({ id:data.recipeId }, { _id:false, name:true, forWho:true, id:true }, function (err, recipe)
                 {
-
-                    var rid = parseInt(data.recipeId,10);
-                    var index = result[0].favorites.indexOf(rid);
-
-                    if (index == -1){
-                        console.log("new favoite "+rid)
-                        result[0].favorites.push(rid)
-                       
-                    }
-                    else {
-                        console.log("remove favoite "+rid)
-                         result[0].favorites.splice(index,1)
-                    }
-                    db.model('users').update({ email:data.email }, {$set:{favorites: result[0].favorites } }, function (err, result)
+                    console.log("value is 1 find recipe")
+                    if (err) 
                     {
-                        if (err) 
-                        {
+                        console.log("--> Err <-- : " + err);
+                        r.status = 0;
+                        r.desc = "--> Err <-- : " + err;
+                        res.json(r);
+                    }
+                   
+                    else if (recipe)
+                    {
+                        console.log("find recipe", recipe)
+                        if (user.favorites.map(function(d) { return d['id']; }).indexOf(data.recipeId) == -1){
+                            console.log("push recipe" )
+                            user.favorites.push({id:recipe.id, name: recipe.name, forWho:recipe.forWho})
+                        }
+                        console.log("new user info", user);
+                        user.save(function (err) {
+                            if(err) {
+                                console.log("--> Err <-- : " + err);
+                                r.status = 0;
+                                r.desc = "--> Err <-- : " + err;
+                                res.json(r);
+                                return;
+                            }
+                            console.log("save user favorites")
+                            r.status = 1;
+                            res.json(r);
+                            return;
+                        });
+                    }
+                }); 
+                else {
+                    var index = user.favorites.map(function(d) { return d['id']; }).indexOf(data.recipeId)
+                    if (index != -1)
+                        user.favorites.splice(user.favorites.indexOf(index),1);
+
+                    user.save(function (err) {
+                        if(err) {
                             console.log("--> Err <-- : " + err);
                             r.status = 0;
                             r.desc = "--> Err <-- : " + err;
                             res.json(r);
+                            return;
                         }
-                        
-                        if (result)
-                        {
-                            
-                            console.log("the result is: " + result.length);
-                            r.status = 1;
-                            r.info = (result.length)?result[0]:[];
-                            res.json(r);
-                        }
-                    });
-                }
-                else
-                {
-                        console.log("the result is: " + result.length);
+                        //console.log("the result is: " + result);
                         r.status = 1;
-                        r.info = (result.length)?result[0]:[];
                         res.json(r);
-                }
+                        return;
+                    });
+                }   
             }
         });
 
@@ -214,7 +262,7 @@ router.post("/auxiliary/updateFavorite", function(req, res)
         res.json(r);  
         return;     
     }    
-});
+});*/
 
 router.post("/auxiliary/simpleFilter", function(req, res) 
 {
@@ -250,15 +298,16 @@ router.post("/auxiliary/simpleFilter", function(req, res)
         data.dairy = (data.dairy!=0)?data.dairy:undefined;
         data.category = (data.category!=0)?data.category:undefined;
 
+        console.log(data)
+
         db.model('recipes').find( { $and: [
-        { category : { $in : ["מנה ראשונה"] } || {$exists:true} }, 
-        /*{ category : data.category || {$exists:true} } , 
+        { category : data.category || {$exists:true} } , 
         {user : data.user || {$exists:true} }, 
         {dairy : data.dairy || {$exists:true} }, 
         {kosher : data.kosher || {$exists:true} },
-        { accessories : { $all : [data.accessories] } || {$exists:true} }, 
-        { forWho : { $all : [data.forWho] } || {$exists:true} }, 
-        { specialPopulations : { $all : [data.specialPopulations] } || {$exists:true} }*/
+        /*{ accessories : {$all: data.accessories }|| {$exists:true} }, 
+        { forWho : {$all: data.forWho } || {$exists:true} }, 
+        { specialPopulations : {$all: data.specialPopulations }|| {$exists:true} }*/
         ] }, { _id : false, name:true, forWho:true, id:true }, function (err, result)
         {
             if (err) 
