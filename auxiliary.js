@@ -93,7 +93,7 @@ router.post("/auxiliary/updateRate", function(req, res)
     {
         console.log("rate is: " , data);
         data.value = parseInt(data.value,10);
-        db.model('recipes').findOne({ id:data.id }, function (err, result)
+        db.model('recipes').findOne({ id:data.recipeId }, function (err, result)
         {
             if (err) 
             {
